@@ -21,7 +21,7 @@ public class PrimitiveTypeConversion {
 		
 		//
 		
-		long l1 = 525255483;
+		long l1 = 52523536483L;
 		int i1 = (int)l1;
 		System.out.println(i1);
 		
