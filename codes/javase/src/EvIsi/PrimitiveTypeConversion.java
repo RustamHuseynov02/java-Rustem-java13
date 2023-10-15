@@ -11,7 +11,7 @@ public class PrimitiveTypeConversion {
 		
 		short s1 = 589;
 		byte b1 = (byte)s1;
-		System.out.println(b1);
+		System.out.println(b1);  //burda overflow(asib dasma) hadisesi bas verir.
 		
 		//
 		
@@ -42,6 +42,8 @@ public class PrimitiveTypeConversion {
 		int test1 = 123;
 		char c1 = (char)test1;
 		System.out.println(c1);
+		
+		
 	}
 
 }
