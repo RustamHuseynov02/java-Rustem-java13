@@ -8,6 +8,7 @@ public class Tapsiriq2 {
 				System.out.println(i);
 			}
 		}
+		
 
 	}
 
