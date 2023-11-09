@@ -18,8 +18,8 @@ public  class Person {
     	 }
     	 
      }
-     private void Identity() {
-    	 
+     private void getIdentity() {
+    	 //private oldugu ucun mainnen parametr gondermek olmur
      }
      public void Age(int age) {
     	 if (age <= 20) {
@@ -37,7 +37,7 @@ public  class Person {
     	    	 else {
     	    		 System.out.println(gunler[i] + ": Ev günü");
     	    	 }
-		}
+		}	
 
     	 
     	 
