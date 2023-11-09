@@ -49,8 +49,9 @@ public  class Person {
 	}
      
      
-     public void Final(int sum) {
+     public void Final(final int sum) {
     	 System.out.println("final parametr qebul eden : " + sum);
+    	 
     	 
      }
      
