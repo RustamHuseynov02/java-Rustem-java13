@@ -34,5 +34,23 @@ public class ArraysDemo {
 			
 		}
 		
+		        
+
+		         // Dizinin ilk elemanını en küçük olarak kabul ediyoruz
+
+		        for (int i = 1; i < numbers.length; i++) {
+		            if (numbers[i] < min) {
+		                min = numbers[i];
+		            }
+		        }
+
+		        System.out.println("Dizinin en küçük elemanı: " + min);
+		    }
+		
+
+		
+		
+		
+		
+
 	}
-}
