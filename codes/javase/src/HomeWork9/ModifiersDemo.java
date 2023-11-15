@@ -7,8 +7,9 @@ public class ModifiersDemo {
 		int min = 20;
 		persons.Age(min);
 		
-		 String[] gunler = {"Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"};
-		persons.WeekDay(gunler);     // weekDay metodu hele bitmeyib bunu nece yazmaq isdeyirem ekrandaki textde bax 
+		
+		String[] gunler = {"Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"};
+		persons.WeekDay(gunler);     
 		
 		String sur = persons.SurNames("Huseynov");
 		
