@@ -13,11 +13,12 @@ public class TeacherGroupEntity {
 
 	
 
-	public TeacherGroupEntity(Integer id, String name, Integer teacherId, Integer paymentDate) {
+	public TeacherGroupEntity(Integer id, String name, Integer teacherId, LocalDateTime registerDate, Integer paymentDate) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.teacherId = teacherId;
+		this.registerDate = registerDate;
 		this.paymentDate = paymentDate;
 	}
 
