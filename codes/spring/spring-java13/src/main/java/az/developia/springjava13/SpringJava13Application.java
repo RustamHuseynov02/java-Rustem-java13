@@ -3,6 +3,10 @@ package az.developia.springjava13;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
+
+import az.developia.springjava13.Employee.Employee;
+import az.developia.springjava13.Pc.Computer;
 
 @SpringBootApplication
 public class SpringJava13Application {
@@ -24,11 +28,31 @@ public class SpringJava13Application {
 		System.out.println(persons.getAge());
 		System.out.println(persons.getSalary());
 		
+		System.out.println("-----------------");
 		
-		String[] beanNames = context.getBeanDefinitionNames();
-		for (String beanName : beanNames) {
-			System.out.println(beanName);
-		}
+		
+		Computer computer = context.getBean("myComp",Computer.class);
+		System.out.println(computer.getId());
+		System.out.println(computer.getBrand());
+		System.out.println(computer.getPrice());
+		System.out.println(computer.getColor());
+		System.out.println(computer.getRam().getMemory());
+		
+		
+		System.out.println("-----------------");
+
+		Employee employees = context.getBean("employee2", Employee.class);
+		System.out.println(employees.getId());
+		System.out.println(employees.getName());
+		System.out.println(employees.getAge());
+		System.out.println(employees.getSalary());
+		System.out.println(employees.getComputer().getBrand());
+		
+		
+//		String[] beanNames = context.getBeanDefinitionNames();
+//		for (String beanName : beanNames) {
+//			System.out.println(beanName);
+//		}
 	}
 
 }
