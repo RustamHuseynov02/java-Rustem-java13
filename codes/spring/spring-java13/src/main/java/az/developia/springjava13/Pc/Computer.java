@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+
 @Component
 public class Computer {
       private Integer id;
@@ -61,5 +64,14 @@ public class Computer {
 		this.ram = ram;
 	}
       
+	@PostConstruct
+	public void init() {
+		System.out.println("Computer classi contextde tam hazir olannan sonra ise dusur");
+	}
+	
+	@PreDestroy
+	public void destroy() {
+		System.out.println("Computer classi bitdikden sonra iwe duwur ");
+	}
       
 }
