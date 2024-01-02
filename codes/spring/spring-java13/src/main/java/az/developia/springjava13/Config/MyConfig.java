@@ -3,9 +3,9 @@ package az.developia.springjava13.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import az.developia.springjava13.Employee.Employee;
-import az.developia.springjava13.Pc.Computer;
-import az.developia.springjava13.Pc.Ram;
+import az.developia.springjava13.component.Employee;
+import az.developia.springjava13.component.Computer;
+import az.developia.springjava13.component.Ram;
 
 @Configuration
 public class MyConfig {

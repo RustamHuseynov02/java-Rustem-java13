@@ -1,4 +1,4 @@
-package az.developia.springjava13.Pc;
+package az.developia.springjava13.component;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

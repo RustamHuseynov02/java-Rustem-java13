@@ -1,4 +1,4 @@
-package az.developia.springjava13.Pc;
+package az.developia.springjava13.component;
 
 import org.springframework.stereotype.Component;
 

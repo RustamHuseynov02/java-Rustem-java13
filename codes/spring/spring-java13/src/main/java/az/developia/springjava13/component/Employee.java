@@ -1,9 +1,7 @@
-package az.developia.springjava13.Employee;
+package az.developia.springjava13.component;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import az.developia.springjava13.Pc.Computer;
 
 
 @Component(value = "employee2")
