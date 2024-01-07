@@ -1,18 +1,16 @@
 package az.developia.springjava13.controller;
 
-import java.util.ArrayList;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
-public class HomeController {
+@RequestMapping(path = "/computers")
+public class ComputerController {
 
-	@GetMapping
-	public String showHome() {
-		return "Home";
+	@GetMapping()
+	public String showComputer() {
+		return "computer";
 	}
-
 }
