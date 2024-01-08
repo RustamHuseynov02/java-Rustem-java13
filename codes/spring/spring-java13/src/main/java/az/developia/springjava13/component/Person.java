@@ -1,54 +1,38 @@
 package az.developia.springjava13.component;
 
-import org.springframework.stereotype.Component;
+import jakarta.validation.constraints.Size;
 
-@Component
 public class Person {
 
 	private Integer id;
+	@Size(max = 30,min = 5,message = "sizin adiniz qaydalara uygun deyil")
 	private String name;
-	private Integer age;
-	private Double salary;
-	
-	public Person() {
-		this.id = 1;
-		this.name = "Rustem";
-		this.age = 21;
-		this.salary  = 3000.50;
-		
-	}
-
+	@Size(max = 30,min = 5,message = "sizin adiniz qaydalara uygun deyil")
+	private String surname;
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public Integer getAge() {
-		return age;
+	public String getSurname() {
+		return surname;
 	}
-
-	public void setAge(Integer age) {
-		this.age = age;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
-
-	public Double getSalary() {
-		return salary;
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", name=" + name + ", surname=" + surname + "]";
 	}
-
-	public void setSalary(Double salary) {
-		this.salary = salary;
-	}
+	
+	
 	
 	
 }
