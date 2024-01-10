@@ -1,13 +1,19 @@
 package com.example.springjavatest.component;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 @Component
+@Primary
 public class Person {
 
 	private Integer id;
 	private String name;
 	private Integer age;
+	@Autowired
+	private Dependency dependency;
 	private Integer salary;
 
 
@@ -48,6 +54,14 @@ public class Person {
 
 	public void setSalary(Integer salary) {
 		this.salary = salary;
+	}
+
+	public Dependency getDependency() {
+		return dependency;
+	}
+
+	public void setDependency(Dependency dependency) {
+		this.dependency = dependency;
 	}
 
 	
