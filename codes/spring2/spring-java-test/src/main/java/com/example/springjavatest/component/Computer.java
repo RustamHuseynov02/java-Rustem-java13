@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+
 @Component
 public class Computer {
 
@@ -62,6 +65,17 @@ public class Computer {
 	public void setRam(Ram ram) {
 		this.ram = ram;
 	}
+	
+	@PostConstruct
+	public void destroy() {
+		System.out.println("bu metod bean yəni bu obyektin consturctoru çağırıldıqdan sonra işə düşür");
+	}
+	
+	@PreDestroy
+	public void init() {
+		System.out.println("bir bean'in sona ermeden önce (yıkılmadan önce) çalıştırılacak olan bir metodu işaretlemek için kullanılır.");
+	}
+	
 	
 	
 	

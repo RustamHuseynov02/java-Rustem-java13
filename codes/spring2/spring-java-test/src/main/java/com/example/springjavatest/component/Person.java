@@ -3,17 +3,19 @@ package com.example.springjavatest.component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
 @Primary
+@Scope("prototype")
 public class Person {
 
 	private Integer id;
 	private String name;
 	private Integer age;
 	@Autowired
-	private Dependency dependency;
+	private Computer computer;
 	private Integer salary;
 
 
@@ -56,13 +58,15 @@ public class Person {
 		this.salary = salary;
 	}
 
-	public Dependency getDependency() {
-		return dependency;
+	public Computer getComputer() {
+		return computer;
 	}
 
-	public void setDependency(Dependency dependency) {
-		this.dependency = dependency;
+	public void setComputer(Computer computer) {
+		this.computer = computer;
 	}
+
+	
 
 	
 

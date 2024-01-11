@@ -11,17 +11,11 @@ public class Example {
 	@Bean
 	public Person examplePerson() {
 		Person newPerson = new Person();
-		System.out.println(newPerson.getName());
-		System.out.println(newPerson.getAge());
+		newPerson.setAge(20);
+		newPerson.setName("Musa");
 		return newPerson;
 	}
 
-	@Bean
-	public Dependency exampleDependency() {
-		Dependency dependency1 = new Dependency();
-		dependency1.setName("2 ci Bean dependencyden");
-		return dependency1;
-	}
 	
 	@Bean
 	public Computer myComp() {
