@@ -1,13 +1,11 @@
-<htm>
+<htmt xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>Telebeler</title>
 	</head>
 	<body>
 		<h1>Telebeler asagida yerlestirilib:</h1>
 		<ul>
-			<li>Kamil</li>
-			<li>Ilqar</li>
-			<li>Hafiz</li>
+				<li th:text="'Telebeler, ' + ${ad} + '!'"></li>
 		</ul>
 	</body>
-</htm>
+</htmt>
