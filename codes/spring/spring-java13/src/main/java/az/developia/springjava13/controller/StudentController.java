@@ -2,6 +2,7 @@ package az.developia.springjava13.controller;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,12 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import az.developia.springjava13.component.Person;
 import az.developia.springjava13.exception.OurRuntimeException;
+import az.developia.springjava13.repository.StudentRepository;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/students")
 public class StudentController {
 	
+	@Autowired
+	private StudentRepository repository;
 	
 	@GetMapping
 	public ArrayList<String> student() {
@@ -38,6 +42,7 @@ public class StudentController {
 			throw new OurRuntimeException(br);
 		}
 		System.out.println(p);
+		repository.save(p);
 	}
 	
 	

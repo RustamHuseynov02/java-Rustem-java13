@@ -1,9 +1,18 @@
 package az.developia.springjava13.component;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 
+@Entity
+@Table(name = "students")
 public class Person {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Size(max = 30,min = 5,message = "sizin adiniz qaydalara uygun deyil")
 	private String name;
