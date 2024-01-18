@@ -10,6 +10,6 @@ public class Handler {
 
 	@ExceptionHandler
 	public String handler(OurRuntimeException o) {
-		return o.getBr().getFieldErrors().get(0).getField();
+		return o.getBr().getFieldErrors().get(0).getDefaultMessage();
 	}
 }

@@ -34,7 +34,7 @@ public class StudentController {
 	
 	@PostMapping(path = "/add")
 	public void add(@Valid @RequestBody Person p ,BindingResult br) {
-		if(br.hasErrors()) {
+		if(br.hasErrors()) {	
 			throw new OurRuntimeException(br);
 		}
 		System.out.println(p);

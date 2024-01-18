@@ -55,17 +55,17 @@ public class SpringJava13Application {
 //		System.out.println("-----------------");
 //		
 //		
-		Home home = context.getBean(Home.class);
-		System.out.println(home.getId());
-		System.out.println(home.getAddress());
-		System.out.println(home.getColor());
-		
-		System.out.println("-----------------");
-		
-		Home home1 = context.getBean(Home.class);
-		System.out.println(home.getId());
-		System.out.println(home.getAddress());
-		System.out.println(home.getColor());
+//		Home home = context.getBean(Home.class);
+//		System.out.println(home.getId());
+//		System.out.println(home.getAddress());
+//		System.out.println(home.getColor());
+//		
+//		System.out.println("-----------------");
+//		
+//		Home home1 = context.getBean(Home.class);
+//		System.out.println(home.getId());
+//		System.out.println(home.getAddress());
+//		System.out.println(home.getColor());
 		
 		
 		
