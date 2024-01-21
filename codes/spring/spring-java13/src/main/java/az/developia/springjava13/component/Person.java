@@ -14,9 +14,9 @@ public class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Size(max = 30,min = 5,message = "sizin adiniz qaydalara uygun deyil")
+	@Size(max = 30,min = 2,message = "sizin adiniz qaydalara uygun deyil")
 	private String name;
-	@Size(max = 30,min = 5,message = "sizin adiniz qaydalara uygun deyil")
+	@Size(max = 30,min = 2,message = "sizin adiniz qaydalara uygun deyil")
 	private String surname;
 	public Integer getId() {
 		return id;

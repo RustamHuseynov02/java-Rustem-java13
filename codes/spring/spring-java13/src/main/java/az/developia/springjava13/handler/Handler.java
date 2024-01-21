@@ -1,5 +1,6 @@
 package az.developia.springjava13.handler;
 
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -10,6 +11,14 @@ public class Handler {
 
 	@ExceptionHandler
 	public String handler(OurRuntimeException o) {
-		return o.getBr().getFieldErrors().get(0).getDefaultMessage();
+		BindingResult br = o.getBr();
+		if (o.getBr()==null) {
+			
+		}
+		else {
+			
+		}
+		
+		return o.getMessage();
 	}
 }
