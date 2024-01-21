@@ -24,7 +24,7 @@ public class BookController {
 	@PostMapping(path = "/add")
 	public void addBook(@Valid @RequestBody Book b, BindingResult binding) {
 		if (binding.hasErrors()) {
-			throw new OurRuntimeException(binding);
+			throw new OurRuntimeException(binding,"sa");
 		}
 		System.out.println(b);
 		repository.save(b);
