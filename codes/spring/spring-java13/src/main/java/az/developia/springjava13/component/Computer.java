@@ -6,16 +6,27 @@ import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 
-@Component
+@Entity
+@Table(name = "computers")
 public class Computer {
+	
+      @Id
+      @GeneratedValue(strategy = GenerationType.IDENTITY)
       private Integer id;
+      @Size(max = 20, min = 1,message = "komputerin brandini duzgun daxil edin")
       private String brand;
       private Integer price;
+      @Size(max = 20, min = 1,message = "komputerin colorunu duzgun daxil edin")
       private String color;
-      @Autowired
-      @Qualifier(value = "ram")
-      private Ram ram;
+
+      
       
       public Computer() {
     	  this.id = 2;
@@ -56,13 +67,6 @@ public class Computer {
 		this.color = color;
 	}
 
-	public Ram getRam() {
-		return ram;
-	}
-
-	public void setRam(Ram ram) {
-		this.ram = ram;
-	}
       
 	@PostConstruct
 	public void init() {
@@ -73,5 +77,14 @@ public class Computer {
 	public void destroy() {
 		System.out.println("Computer classi bitdikden sonra iwe duwur ");
 	}
+
+	@Override
+	public String toString() {
+		return "Computer [id=" + id + ", brand=" + brand + ", price=" + price + ", color=" + color + "]";
+	}
+
+	
+	
+	
       
 }

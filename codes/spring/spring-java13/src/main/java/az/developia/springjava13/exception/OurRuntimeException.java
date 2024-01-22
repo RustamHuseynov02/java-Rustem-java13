@@ -10,6 +10,10 @@ public class OurRuntimeException extends RuntimeException {
 		super(m);
 		this.br = br;
 	}
+	
+	public OurRuntimeException(BindingResult br) {
+		this.br = br;
+	}
 
 	public BindingResult getBr() {
 		return br;

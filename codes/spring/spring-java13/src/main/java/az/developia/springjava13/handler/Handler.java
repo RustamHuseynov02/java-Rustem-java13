@@ -8,6 +8,12 @@ import az.developia.springjava13.exception.OurRuntimeException;
 
 @RestControllerAdvice
 public class Handler {
+	
+	
+//	@ExceptionHandler  bu annotasiyani 2 defe bir classin icinde istifade etmek olmur ancaq type vermelisen
+//	public String handler2(OurRuntimeException exception) {
+//		return exception.getBr().getFieldErrors().get(0).getDefaultMessage();
+//	}
 
 	@ExceptionHandler
 	public String handler(OurRuntimeException o) {
