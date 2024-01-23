@@ -1,9 +1,13 @@
 package com.example.springjavatest.component;
 
+import jakarta.validation.constraints.Size;
+
 public class Student {
 
 	private Integer id;
+	@Size(max = 30, min = 2, message = "adinizi dogru sekilde qeyd edin")
 	private String name;
+	@Size(max = 30, min = 2, message = "soyadinizi dogru sekilde qeyd edin")
 	private String surname;
 	
 	public Student(Integer id,String name,String surname) {
@@ -39,6 +43,13 @@ public class Student {
 	public Student() {
 		
 	}
+
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", name=" + name + ", surname=" + surname + "]";
+	}
+	
+	
 	
 	
 }
