@@ -10,7 +10,7 @@ import az.developia.springjava13.component.Ram;
 import az.developia.springjava13.component.Book;
 import az.developia.springjava13.component.Computer;
 import az.developia.springjava13.component.Home;
-import az.developia.springjava13.component.Person;
+import az.developia.springjava13.component.Student;
 
 @SpringBootApplication
 public class SpringJava13Application {
