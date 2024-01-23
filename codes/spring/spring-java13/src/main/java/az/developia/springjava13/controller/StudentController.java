@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import az.developia.springjava13.component.Person;
+import az.developia.springjava13.component.Student;
 import az.developia.springjava13.exception.OurRuntimeException;
 import az.developia.springjava13.repository.StudentRepository;
 import jakarta.validation.Valid;
@@ -27,14 +27,14 @@ public class StudentController {
 	private StudentRepository repository;
 
 	@GetMapping
-	public List<Person> getList() {
+	public List<Student> getList() {
 
 		return repository.findAll();
 
 	}
 
 	@PostMapping(path = "/add")
-	public void add(@Valid @RequestBody Person p, BindingResult br) {
+	public void add(@Valid @RequestBody Student p, BindingResult br) {
 		if (br.hasErrors()) {
 			throw new OurRuntimeException(br, "melumatin tamligi pozulub");
 		}
@@ -43,7 +43,7 @@ public class StudentController {
 	}
 
 	@PutMapping("/update")
-	public void update(@Valid @RequestBody Person p, BindingResult br) {
+	public void update(@Valid @RequestBody Student p, BindingResult br) {
 		// 0 olmasi,var olmuyan id olmasi,null olmasi,dogru id-ni verib redakte etmek
 		// crud emeliyati
 		if (p.getId() == null || p.getId() <= 0) {
@@ -73,11 +73,11 @@ public class StudentController {
 	}
 
 	@GetMapping("/{id}")
-	public Person findAllById(@PathVariable Integer id) {
+	public Student findAllById(@PathVariable Integer id) {
 		if (id == null || id <= 0) {
              throw new OurRuntimeException(null, "id yanlisdir duzgun qeyd edin");
 		}
-		Optional<Person> o = repository.findById(id);
+		Optional<Student> o = repository.findById(id);
 		if (o.isPresent()) {
 			return o.get();
 		}
