@@ -1,17 +1,27 @@
 package az.developia.springjava13.component;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+
+
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 
-@Component
-@Scope(value = "prototype")
+@Entity
+@Table(name = "home")
 public class Home {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Size(max = 20,min = 1,message = "unvani dogru daxil edin")
 	private String address;
+	@Size(max = 10,min = 1)
 	private String color;
 
 	public Home() {
@@ -53,5 +63,12 @@ public class Home {
 	public void destroy() {
 		System.out.println("destroy");
 	}
+
+	@Override
+	public String toString() {
+		return "Home [id=" + id + ", address=" + address + ", color=" + color + "]";
+	}
+	
+	
 
 }
