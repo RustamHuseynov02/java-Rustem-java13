@@ -3,21 +3,16 @@ package az.developia.springjava13;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 
-import az.developia.springjava13.component.Employee;
-import az.developia.springjava13.component.Ram;
-import az.developia.springjava13.component.Book;
-import az.developia.springjava13.component.Computer;
-import az.developia.springjava13.component.Home;
-import az.developia.springjava13.component.Student;
+
+
 
 @SpringBootApplication
 public class SpringJava13Application {
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(SpringJava13Application.class, args);
-		
+
 //		Book books = context.getBean(Book.class);
 //		System.out.println(books.getId());
 //		System.out.println(books.getName());
@@ -66,11 +61,7 @@ public class SpringJava13Application {
 //		System.out.println(home.getId());
 //		System.out.println(home.getAddress());
 //		System.out.println(home.getColor());
-		
-		
-		
-		
-		
+
 //		String[] beanNames = context.getBeanDefinitionNames();
 //		for (String beanName : beanNames) {
 //			System.out.println(beanName);
