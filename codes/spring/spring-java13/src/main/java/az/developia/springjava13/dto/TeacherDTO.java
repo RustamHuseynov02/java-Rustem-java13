@@ -1,6 +1,7 @@
 package az.developia.springjava13.dto;
 
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +20,7 @@ public class TeacherDTO {
 	private String username;
 	@Size(max = 30, min = 2, message = "sizin adiniz qaydalara uygun deyil")
 	private String password;
-	@Size(max = 30, min = 2, message = "sizin adiniz qaydalara uygun deyil")
+	@Pattern(regexp = "[a-z]+@[a-z]+\\.[a-z]{2,4}", message = "emaili duz yaz")
 	private String email;
 	@Size(max = 30, min = 2, message = "sizin adiniz qaydalara uygun deyil")
 	private String type;
