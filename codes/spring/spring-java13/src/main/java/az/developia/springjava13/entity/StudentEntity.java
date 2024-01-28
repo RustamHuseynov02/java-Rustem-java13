@@ -13,9 +13,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @ToString
-@NoArgsConstructor
 @Entity
 @Table(name = "students")
 public class StudentEntity {
