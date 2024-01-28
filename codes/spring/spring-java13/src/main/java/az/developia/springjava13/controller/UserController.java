@@ -1,5 +1,7 @@
 package az.developia.springjava13.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,9 +10,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import az.developia.springjava13.dto.DealerDTO;
 import az.developia.springjava13.dto.TeacherDTO;
+import az.developia.springjava13.entity.DealerEntity;
 import az.developia.springjava13.entity.TeacherEntity;
 import az.developia.springjava13.entity.UserEntity;
+import az.developia.springjava13.exception.OurRuntimeException;
+import az.developia.springjava13.repository.DealerRepository;
 import az.developia.springjava13.repository.TeacherRepository;
 import az.developia.springjava13.repository.UserRepository;
 
@@ -23,15 +29,26 @@ public class UserController {
 	private TeacherRepository repository;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private DealerRepository dealerRepository;
 	
 	@PostMapping(path = "/teacher")
+	
 	public void createTeacher(@RequestBody TeacherDTO t) {
+		
+		Optional<UserEntity> o = userRepository.findById(t.getUsername());
+		if (o.isPresent()) {
+			throw new OurRuntimeException(null, "bu username artiq istifade olunub");
+		}
+		
 		TeacherEntity entity = new TeacherEntity();
 		entity.setId(null);
 		entity.setName(t.getName());
 		entity.setSurname(t.getSurname());
 		entity.setUsername(t.getUsername());
 		repository.save(entity);
+		
+		
 		
 		UserEntity userEntity = new UserEntity();
 		userEntity.setUsername(t.getUsername());
@@ -41,6 +58,26 @@ public class UserController {
 		userEntity.setEnabled(1);
 		userRepository.save(userEntity);
 		
+		
+		
+	}
+	
+	@PostMapping(path = "/dealer")
+	public void createDealer(@RequestBody DealerDTO d) {
+		DealerEntity dealerEntity = new DealerEntity();
+		dealerEntity.setId(null);
+		dealerEntity.setName(d.getName());
+		dealerEntity.setSurname(d.getSurname());
+		dealerEntity.setUsername(d.getUsername());
+		dealerRepository.save(dealerEntity);
+		
+		UserEntity userEntity = new UserEntity();
+		userEntity.setUsername(d.getUsername());
+		userEntity.setPassword(d.getPassword());
+		userEntity.setEmail(d.getEmail());
+		userEntity.setType("dealer");
+		userEntity.setEnabled(1);
+		userRepository.save(userEntity);
 		
 		
 	}
