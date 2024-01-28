@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import az.developia.springjava13.component.Book;
+
+import az.developia.springjava13.entity.BookEntity;
 import az.developia.springjava13.exception.OurRuntimeException;
 import az.developia.springjava13.repository.BookRepository;
 import jakarta.validation.Valid;
@@ -27,16 +28,15 @@ public class BookController {
 	@Autowired
 	private BookRepository repository;
 
-	
 	@GetMapping
-	public List<Book> findAllById(){
+	public List<BookEntity> findAllById() {
 		return repository.findAll();
 	}
-	
+
 	@PostMapping(path = "/add")
 	// 0 olmasi,var olmuyan id olmasi,null olmasi,dogru id-ni verib redakte etmek
 	// crud emeliyati
-	public void addBook(@Valid @RequestBody Book b, BindingResult binding) {
+	public void addBook(@Valid @RequestBody BookEntity b, BindingResult binding) {
 		if (binding.hasErrors()) {
 			throw new OurRuntimeException(null, "Melumati duzgun qeyd edin");
 		}
@@ -45,7 +45,7 @@ public class BookController {
 	}
 
 	@PutMapping("update")
-	public void update(@RequestBody Book b, BindingResult binding) {
+	public void update(@RequestBody BookEntity b, BindingResult binding) {
 		if (b.getId() == null || b.getId() <= 0) {
 			throw new OurRuntimeException(null, "id dogru qeyd edin");
 		}
@@ -69,15 +69,14 @@ public class BookController {
 	}
 
 	@GetMapping("/{id}")
-	public Book findById(@PathVariable Integer id) {
+	public BookEntity findById(@PathVariable Integer id) {
 		if (id == 0 || id <= 0) {
 			throw new OurRuntimeException(null, "id-ni duzgun qeyd edin");
 		}
-		Optional<Book> optional = repository.findById(id);
+		Optional<BookEntity> optional = repository.findById(id);
 		if (optional.isPresent()) {
 			return optional.get();
-		}
-		else {
+		} else {
 			throw new OurRuntimeException(null, "id tapilmadi");
 		}
 	}
