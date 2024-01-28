@@ -15,7 +15,7 @@ public class TeacherMainClass {
 		// repoda datada table-nın içinə yazdırır
 
 		TeacherEntity teacher = new TeacherEntity(null, "Kamil", "Memmedov", "0556189999", "Xirdalan City",
-				"kamil01", "111222333");
+				"kamil1", "111222333");
 		
 		
 
