@@ -64,6 +64,12 @@ public class UserController {
 	
 	@PostMapping(path = "/dealer")
 	public void createDealer(@RequestBody DealerDTO d) {
+		
+		Optional<UserEntity> o = userRepository.findById(d.getUsername());  // burada biz userRepo sayesinde dtomuzun usernameni primary edirik
+		if (o.isPresent()) {
+			throw new OurRuntimeException(null, "bu username artiq istifade olunub");
+		}
+		
 		DealerEntity dealerEntity = new DealerEntity();
 		dealerEntity.setId(null);
 		dealerEntity.setName(d.getName());
