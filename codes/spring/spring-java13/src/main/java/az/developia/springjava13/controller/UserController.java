@@ -33,12 +33,11 @@ public class UserController {
 	private UserRepository userRepository;
 	@Autowired
 	private DealerRepository dealerRepository;
-	
 	@Autowired
 	private AuthorityRepository authorityRepository;
 	
-	@PostMapping(path = "/teacher")
 	
+	@PostMapping(path = "/teacher")
 	public void createTeacher(@RequestBody TeacherDTO t) {
 		
 		Optional<UserEntity> o = userRepository.findById(t.getUsername());
@@ -73,7 +72,7 @@ public class UserController {
 		
 	}
 	
-	@PostMapping(path = "/dealer")
+	@PostMapping(path = "/seller")
 	public void createDealer(@RequestBody DealerDTO d) {
 		
 		Optional<UserEntity> o = userRepository.findById(d.getUsername());  // burada biz userRepo sayesinde dtomuzun usernameni primary edirik
@@ -95,6 +94,13 @@ public class UserController {
 		userEntity.setType("dealer");
 		userEntity.setEnabled(1);
 		userRepository.save(userEntity);
+		
+		
+		AuthorityEntity authorityEntity = new AuthorityEntity();
+		authorityEntity.setId(null);
+		authorityEntity.setUsername(userEntity.getUsername());
+		authorityEntity.setAuthority("ROLE_ADD_BOOK");
+		authorityRepository.save(authorityEntity);
 		
 		
 	}

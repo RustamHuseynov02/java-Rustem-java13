@@ -34,6 +34,7 @@ public class SecutiryConfig extends WebSecurityConfigurerAdapter{
 
 		http.csrf().disable().authorizeRequests()
 		.antMatchers(HttpMethod.POST, "/users/teacher").permitAll()
+		.antMatchers(HttpMethod.POST, "/users/seller").permitAll()
 
 		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
