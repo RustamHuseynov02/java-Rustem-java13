@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import az.developia.springjava13.dto.DealerDTO;
 import az.developia.springjava13.dto.TeacherDTO;
+import az.developia.springjava13.entity.AuthorityEntity;
 import az.developia.springjava13.entity.DealerEntity;
 import az.developia.springjava13.entity.TeacherEntity;
 import az.developia.springjava13.entity.UserEntity;
 import az.developia.springjava13.exception.OurRuntimeException;
+import az.developia.springjava13.repository.AuthorityRepository;
 import az.developia.springjava13.repository.DealerRepository;
 import az.developia.springjava13.repository.TeacherRepository;
 import az.developia.springjava13.repository.UserRepository;
@@ -31,6 +33,9 @@ public class UserController {
 	private UserRepository userRepository;
 	@Autowired
 	private DealerRepository dealerRepository;
+	
+	@Autowired
+	private AuthorityRepository authorityRepository;
 	
 	@PostMapping(path = "/teacher")
 	
@@ -57,7 +62,13 @@ public class UserController {
 		userEntity.setType("teacher");
 		userEntity.setEnabled(1);
 		userRepository.save(userEntity);
+
 		
+		
+		AuthorityEntity a = new AuthorityEntity();
+		a.setUsername(userEntity.getUsername());
+		a.setAuthority("ROLE_ADD_STUDENT");
+		authorityRepository.save(a);
 		
 		
 	}

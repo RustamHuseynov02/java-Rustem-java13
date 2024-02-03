@@ -3,7 +3,10 @@ package az.developia.springjava13.controller;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,14 +17,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import az.developia.springjava13.dto.StudentDTO;
 import az.developia.springjava13.entity.StudentEntity;
 import az.developia.springjava13.entity.UserEntity;
-import az.developia.springjava13.dto.StudentDTO;
 import az.developia.springjava13.exception.OurRuntimeException;
 import az.developia.springjava13.repository.StudentRepository;
 import az.developia.springjava13.repository.UserRepository;
 import az.developia.springjava13.response.StudentResponse;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/students")
@@ -44,6 +46,7 @@ public class StudentController {
 	}
 
 	@PostMapping
+	@PreAuthorize(value = " hasAuthority('ROLE_ADD_STUDENT')")
 	public void add(@Valid @RequestBody StudentDTO s, BindingResult br) { // burada valid annotasiyasi gelen
 																		// requestin dogrulunu yoxlayir eger webden gelen sorgu
 		                          // @valid-in qoydugu qaydalara uygun deyilse
@@ -57,6 +60,7 @@ public class StudentController {
 		entity.setId(null);
 		entity.setName(s.getName());
 		entity.setSurname(s.getSurname());
+		entity.setUsername(s.getUsername());
 		System.out.println(s);                                        // daha da yaxsi oyrenmek istesen ora bax
 		repository.save(entity);
 		
