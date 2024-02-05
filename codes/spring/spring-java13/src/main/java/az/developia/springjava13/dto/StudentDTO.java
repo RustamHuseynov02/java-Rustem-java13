@@ -26,5 +26,7 @@ public class StudentDTO {
 	private String email;
 	@Size(max = 30, min = 2, message = "sizin adiniz qaydalara uygun deyil")
 	private String type;
+	
+	private Integer teacherId;
 
 }

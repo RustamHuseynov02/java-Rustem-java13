@@ -6,4 +6,6 @@ import az.developia.springjava13.entity.TeacherEntity;
 
 public interface TeacherRepository extends JpaRepository<TeacherEntity, Integer> {
 
+	TeacherEntity findByUsername(String username);
+
 }

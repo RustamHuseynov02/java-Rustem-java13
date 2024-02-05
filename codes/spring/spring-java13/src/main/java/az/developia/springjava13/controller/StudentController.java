@@ -1,12 +1,14 @@
 package az.developia.springjava13.controller;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import az.developia.springjava13.dto.StudentDTO;
 import az.developia.springjava13.entity.StudentEntity;
+import az.developia.springjava13.entity.TeacherEntity;
 import az.developia.springjava13.entity.UserEntity;
 import az.developia.springjava13.exception.OurRuntimeException;
 import az.developia.springjava13.repository.StudentRepository;
+import az.developia.springjava13.repository.TeacherRepository;
 import az.developia.springjava13.repository.UserRepository;
 import az.developia.springjava13.response.StudentResponse;
 
@@ -33,17 +37,27 @@ public class StudentController {
 	private StudentRepository repository;
 	@Autowired
 	private UserRepository userRepo;
+	@Autowired 
+	private TeacherRepository teacherRepository;
 
 	@GetMapping
+	@PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
 	public StudentResponse getList() {
 		StudentResponse studentResponse = new StudentResponse();
-		studentResponse.setStudents(repository.findAll()); // burada bizim studentResponse classimiz icinde olan
+		                                                    // burada bizim studentResponse classimiz icinde olan
 															// deyisenin setter metoduna findAll(hamisini
 															// qaytaririq)bazada olan butun melumatlari
+		
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		TeacherEntity operatorTeacher = teacherRepository.findByUsername(username);
+		Integer teacherId = operatorTeacher.getId();
+		List<StudentEntity> list = repository.findAllByTeacherId(teacherId);
+		studentResponse.setStudents(list);
+		
 		studentResponse.setUsername("A4Tech");
 		return studentResponse;
 
-	}
+	}	
 
 	@PostMapping
 	@PreAuthorize(value = " hasAuthority('ROLE_ADD_STUDENT')")
@@ -56,11 +70,20 @@ public class StudentController {
 																			// annotasiya altinda olan metodun
 		}                                                        // parametresine daxil olur orada xetani daha optimize bir sekilde gosterir
 		
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		TeacherEntity operatorTeacher = teacherRepository.findByUsername(username);
+		Integer teacherId = operatorTeacher.getId();
+		
+		if (s.getTeacherId()!= teacherId) {
+			throw new OurRuntimeException(null, "basqa mellimin idsi ile telebe qeyd etmek olmaz");
+		}
+		
 		StudentEntity entity = new StudentEntity();
 		entity.setId(null);
 		entity.setName(s.getName());
 		entity.setSurname(s.getSurname());
 		entity.setUsername(s.getUsername());
+		entity.setTeacherId(teacherId);
 		System.out.println(s);                                        // daha da yaxsi oyrenmek istesen ora bax
 		repository.save(entity);
 		
@@ -75,15 +98,26 @@ public class StudentController {
 	}
 
 	@PutMapping
-	public void update(@Valid @RequestBody StudentEntity p, BindingResult br) {
+	@PreAuthorize("hasAuthority('ROLE_UPDATE_STUDENT')")
+	public void update(@Valid @RequestBody StudentEntity s, BindingResult br,StudentDTO d) {
 		// 0 olmasi,var olmuyan id olmasi,null olmasi,dogru id-ni verib redakte etmek
 		// crud emeliyati
-		if (p.getId() == null || p.getId() <= 0) {
-			throw new OurRuntimeException(null, "id-ni duzgun qeyd edin"); // bu mapping bizim save olan data-mizi id
+		if (s.getId() == null || s.getId() <= 0) {
+			throw new OurRuntimeException(br, "id-ni duzgun qeyd edin"); // bu mapping bizim save olan data-mizi id
 																			// sine gore goturub
 		} // redakte ede bilir burada olan qaydalarda post demek olar ki eynidi
-		if (repository.findById(p.getId()).isPresent()) {
-			repository.save(p);
+		
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		TeacherEntity operatorTeacher = teacherRepository.findByUsername(username);
+		Integer teacherId = operatorTeacher.getId();
+		
+		if (d.getTeacherId()!= teacherId) {
+			throw new OurRuntimeException(null, "bu telebeni update ede bilmezsen");
+		}
+		
+		if (repository.findById(s.getId()).isPresent()) {
+		    s.setTeacherId(teacherId);
+			repository.save(s);
 		} else {
 			throw new OurRuntimeException(null, "id tapilmadi ve uygun id deyil");
 		}
@@ -91,13 +125,23 @@ public class StudentController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Integer id) {
+	@PreAuthorize("hasAuthority('ROLE_DELETE_STUDENT')")
+	public void delete(@PathVariable Integer id,StudentEntity s,StudentDTO d) {
 		// 0 olmasi,var olmuyan id olmasi,null olmasi,dogru id-ni ver silim
 		if (id == null || id <= 0) {
 			throw new OurRuntimeException(null, "id yanlisdir duzgun qeyd edin");
 		}
+		
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		TeacherEntity operatorTeacher = teacherRepository.findByUsername(username);
+		Integer teacherId = operatorTeacher.getId();
+		
+		if (d.getTeacherId()!=teacherId) {
+			throw new OurRuntimeException(null,"bu telebeni sile bilmezsen" );
+		}
 
 		if (repository.findById(id).isPresent()) {
+			s.setTeacherId(teacherId);
 			repository.deleteById(id);
 		} else {
 			throw new OurRuntimeException(null, "id tapilmadi");
@@ -106,6 +150,7 @@ public class StudentController {
 	}
 
 	@GetMapping("/{id}")
+	@PreAuthorize("hasAuthority('ROLE_GET_ID_STUDENT')")
 	public StudentEntity findAllById(@PathVariable Integer id) {
 		if (id == null || id <= 0) {
 			throw new OurRuntimeException(null, "id yanlisdir duzgun qeyd edin");
