@@ -3,6 +3,7 @@ package az.developia.springjava13.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +41,7 @@ public class UserController {
 	@PostMapping(path = "/teacher")
 	public void createTeacher(@RequestBody TeacherDTO t) {
 		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		Optional<UserEntity> o = userRepository.findById(t.getUsername());
 		if (o.isPresent()) {
 			throw new OurRuntimeException(null, "bu username artiq istifade olunub");
@@ -55,8 +57,11 @@ public class UserController {
 		
 		
 		UserEntity userEntity = new UserEntity();
+		
 		userEntity.setUsername(t.getUsername());
-		userEntity.setPassword(t.getPassword());
+		String raw = t.getPassword();
+		String pass = "{bcrypt}" + encoder.encode(raw);
+		userEntity.setPassword(pass);
 		userEntity.setEmail(t.getEmail());
 		userEntity.setType("teacher");
 		userEntity.setEnabled(1);
