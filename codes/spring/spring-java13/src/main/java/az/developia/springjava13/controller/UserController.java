@@ -17,16 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import az.developia.springjava13.dto.DealerDTO;
+import az.developia.springjava13.dto.OwnerDTO;
 import az.developia.springjava13.dto.StudentDTO;
 import az.developia.springjava13.dto.TeacherDTO;
 import az.developia.springjava13.entity.AuthorityEntity;
 import az.developia.springjava13.entity.DealerEntity;
+import az.developia.springjava13.entity.OwnerEntity;
 import az.developia.springjava13.entity.StudentEntity;
 import az.developia.springjava13.entity.TeacherEntity;
 import az.developia.springjava13.entity.UserEntity;
 import az.developia.springjava13.exception.OurRuntimeException;
 import az.developia.springjava13.repository.AuthorityRepository;
 import az.developia.springjava13.repository.DealerRepository;
+import az.developia.springjava13.repository.OwnerRepository;
 import az.developia.springjava13.repository.StudentRepository;
 import az.developia.springjava13.repository.TeacherRepository;
 import az.developia.springjava13.repository.UserRepository;
@@ -48,6 +51,7 @@ public class UserController {
 	
 	private final StudentRepository studentRepository;
 	
+	private final OwnerRepository ownerRepository;
 	
 	@PostMapping(path = "/teacher")
 	public void createTeacher(@RequestBody TeacherDTO t) {
@@ -96,6 +100,8 @@ public class UserController {
 			throw new OurRuntimeException(null, "bu username artiq istifade olunub");
 		}
 		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
 		DealerEntity dealerEntity = new DealerEntity();
 		dealerEntity.setId(null);
 		dealerEntity.setName(d.getName());
@@ -105,9 +111,11 @@ public class UserController {
 		
 		UserEntity userEntity = new UserEntity();
 		userEntity.setUsername(d.getUsername());
-		userEntity.setPassword(d.getPassword());
+		String raw = d.getPassword();
+		String pass = "{bcrypt}" + encoder.encode(raw);
+		userEntity.setPassword(pass);
 		userEntity.setEmail(d.getEmail());
-		userEntity.setType("dealer");
+		userEntity.setType("seller");
 		userEntity.setEnabled(1);
 		userRepository.save(userEntity);
 		
@@ -115,7 +123,8 @@ public class UserController {
 		AuthorityEntity authorityEntity = new AuthorityEntity();
 		authorityEntity.setId(null);
 		authorityEntity.setUsername(userEntity.getUsername());
-		authorityEntity.setAuthority("ROLE_ADD_BOOK");
+		authorityEntity.setAuthority("ROLE_GET_ALL_BOOK");
+		authorityEntity.setAuthority("ROLE_GET_ID_BOOK");
 		authorityRepository.save(authorityEntity);
 		
 		
@@ -129,7 +138,7 @@ public class UserController {
 	
 	@PostMapping("/student")
 	@PreAuthorize(value = " hasAuthority('ROLE_ADD_STUDENT')")
-	public void add(@Valid @RequestBody StudentDTO s, BindingResult br) { // burada valid annotasiyasi gelen
+	public void createStudent(@Valid @RequestBody StudentDTO s, BindingResult br) { // burada valid annotasiyasi gelen
 																			// requestin dogrulunu yoxlayir eger webden
 																			// gelen sorgu
 		// @valid-in qoydugu qaydalara uygun deyilse
@@ -178,6 +187,48 @@ public class UserController {
 		authorityRepository.save(authorityEntity);
 		
 	}
+	
+	 
+	
+	@PostMapping(path = "/owner")
+	public boolean createOwner(@Valid @RequestBody OwnerDTO o,BindingResult br) {
+		
+		if (br.hasErrors()) {
+			throw new OurRuntimeException(br, "Melumati dogru daxil edin");
+		}
+		
+		Optional<UserEntity> optional = userRepository.findById(o.getUsername());
+		if (optional.isPresent()) {
+			throw new OurRuntimeException(null, "bu username artiq istifade olunub");
+		}
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		OwnerEntity ownerEntity = new OwnerEntity();
+		ownerEntity.setName(o.getName());
+		ownerEntity.setSurname(o.getSurname());
+		ownerEntity.setUsername(o.getUsername());
+		ownerRepository.save(ownerEntity);
+		
+		UserEntity entity = new UserEntity();
+		entity.setUsername(o.getUsername());
+		String raw = o.getPassword();
+		String pass = "{bcrypt}" + encoder.encode(raw);
+		entity.setPassword(pass);
+		entity.setEmail(o.getEmail());
+		entity.setEnabled(1);
+		entity.setType("Owner");
+		userRepository.save(entity);
+		
+		AuthorityEntity authorityEntity = new AuthorityEntity();
+		authorityEntity.setAuthority("ROLE_ADD_BOOK");
+		authorityEntity.setUsername(entity.getUsername());
+		authorityRepository.save(authorityEntity);
+		
+		
+		return true;
+	}
+	
 
 	
 }

@@ -7,27 +7,23 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "books")
+@Table(name = "owners")
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
-public class BookEntity {
+public class OwnerEntity {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy =GenerationType.IDENTITY )
 	private Integer id;
-
-	private String name;
-	private Double price;
-	private Integer pageCount;
-
-	private String author;
 	
-	private Integer ownerId;
-
+	private String name;
+	
+	private String surname;
+	
+	private String username;
 }

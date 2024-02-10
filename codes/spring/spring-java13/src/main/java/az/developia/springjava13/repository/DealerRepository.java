@@ -6,4 +6,6 @@ import az.developia.springjava13.entity.DealerEntity;
 
 public interface DealerRepository extends JpaRepository<DealerEntity, Integer>{
 
+	DealerEntity findByUsername(String username);
+
 }

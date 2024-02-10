@@ -18,4 +18,6 @@ public class BookDTO {
 	private Integer pageCount;
 	@Size(max = 20, min = 1, message = "yazicin adini dogru girin")
 	private String author;
+	
+	private Integer ownerId;
 }
