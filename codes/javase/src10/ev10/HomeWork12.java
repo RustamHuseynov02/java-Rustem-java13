@@ -50,27 +50,26 @@ public class HomeWork12 {
 		String result2 = metod(word1, word2, word3);
 		System.out.println(result2);
 		// 5
-		int result = randomCount.nextInt(30)+20;
-		System.out.println("30 ile 50 arasinda random reqemler : " +result);
+		int result = randomCount.nextInt(30) + 20;
+		System.out.println("30 ile 50 arasinda random reqemler : " + result);
 
-		//6
-		
+		// 6
+
 		double total = count(20);
 		System.out.println("Verilen ededin kok altini hesapladim : " + total);
-		
-		//7
+
+		// 7
 		double sum = totalCount(30, 50);
 		System.out.println("Verilen ededin quvvet ustunu hesapladim : " + sum);
-		
-		//8
+
+		// 8
 		double sum2 = 0.0;
-		Double[] d = new Double[] {2.56,4.32,3.77,5.54,6.45,9.10,9.97,8.67};
+		Double[] d = new Double[] { 2.56, 4.32, 3.77, 5.54, 6.45, 9.10, 9.97, 8.67 };
 		for (int i = 0; i < d.length; i++) {
 			sum2 = round(d[i]);
-			System.out.println(sum2);
+			System.out.println("verilen ededleri yuvarlaqlasdirdim : " + sum2);
 		}
-		
-		
+
 	}
 
 	public static String metod(String word1, String word2, String word3) {
@@ -78,15 +77,17 @@ public class HomeWork12 {
 
 		return a;
 	}
-	
-	public static double count (double d) {
+
+	public static double count(double d) {
 		double result = Math.sqrt(d);
 		return result;
 	}
-	public static double totalCount (double a, double b) {
+
+	public static double totalCount(double a, double b) {
 		double result = Math.pow(a, b);
 		return result;
 	}
+
 	public static double round(double c) {
 		double result = Math.round(c);
 		return result;

@@ -1,13 +1,13 @@
 package HomeWork;
 
 public class prac {
-      public static void main(String[] args) {
+	public static void main(String[] args) {
 //		int[] massiv = {1,3,6,8};
 //		for (int i = 0; i < massiv.length; i++) {
 //			System.out.println(massiv[i]);
 //			
 //		}
-    	  
+
 //    	  int[][] massiv = {{1,2},{3,5}};
 //    	  
 //    	  for (int i = 0; i < 2; i++) {
@@ -15,9 +15,7 @@ public class prac {
 //				System.out.println("massiv ["+ i +"] ["+ j +"] = " + massiv[i][j]);
 //			}
 //		}
-    	  
-    	            
-    		    
+
 //    		        System.out.println(faktoriyel(4));
 //    		    
 //    		    
@@ -31,5 +29,17 @@ public class prac {
 //	        } else {
 //	            return sayi * faktoriyel(sayi - 1);
 //	        }
-	    }
+
+		int[][] massiv = { { 1, 2 }, { 3, 4 } };
+		for (int i = 0; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				System.out.println("massiv [" + i + "] [" + j + "] =" +massiv[i][j]);
+			}
+			
+//			        massiv [0] [0] =1     //
+//			        massiv [0] [1] =2
+//					massiv [1] [0] =3
+//					massiv [1] [1] =4
+		}
+	}
 }

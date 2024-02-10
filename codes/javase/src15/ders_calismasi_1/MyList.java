@@ -58,12 +58,14 @@ public class MyList<T> {
 	int newIndex = 0;
 
 	public void removeMethod(int a) {
+		newIndex = 0;
 		if (a < index) {
 			Object[] newArray = new Object[index - 1];
 			for (int i = 0; i < index; i++) {
 				// System.out.println(index);
 				if (a == i) {
-					continue;
+					continue; // burada continue kesir ve fora geri donur yeni if`den pramoy fora qayidir alt
+								// setirdeki for`un daxilde olan kodu gormur
 				}
 				newArray[newIndex++] = array[i];
 

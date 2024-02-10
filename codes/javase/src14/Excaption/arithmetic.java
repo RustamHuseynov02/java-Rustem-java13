@@ -49,7 +49,7 @@ public class arithmetic {
 		int ust = 100;
 
 		if (a < alt  || a > ust) {
-			throw new OutOfRangeValueException("uygun deil");
+			throw new OutOfRangeValueException("senin gonderdiyin reqem heddi kecdi");
 		}
 
 		return a;
