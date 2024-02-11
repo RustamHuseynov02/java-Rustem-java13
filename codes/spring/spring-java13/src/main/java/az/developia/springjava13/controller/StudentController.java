@@ -176,6 +176,8 @@ public class StudentController {
 		TeacherEntity operatorTeacher = teacherRepository.findByUsername(username);
 		Integer teacherId = operatorTeacher.getId();
 		
+		
+		
 		StudentEntity en = repository.findById(id).orElseThrow(() -> new OurRuntimeException(null, "id tapilmadi"));
 		
 //		if (finded.isPresent()) {
