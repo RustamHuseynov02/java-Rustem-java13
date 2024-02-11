@@ -158,7 +158,7 @@ public class BookController {
 		if (optional.isPresent()) {
 			BookEntity entity = optional.get();
 			if (entity.getOwnerId() == ownerId) {
-				return optional.get();
+				return entity;
 			}else {
 				throw new OurRuntimeException(null, "bu id-ni cagira bilmezsen");
 			}
