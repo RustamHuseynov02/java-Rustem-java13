@@ -2,6 +2,8 @@ package az.developia.springjava13.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import javax.validation.Valid;
 
@@ -58,14 +60,24 @@ public class StudentController {
 		TeacherEntity operatorTeacher = teacherRepository.findByUsername(username);
 		Integer teacherId = operatorTeacher.getId();
 		List<StudentEntity> list = repository.findAllByTeacherId(teacherId);
-		list.stream().map(s ->{
-			return s.getName();
-		}).filter(p ->
+		Function<StudentEntity, String> s = new Function<StudentEntity, String>() {
+			
+			@Override
+			public String apply(StudentEntity t) {
+				return t.getName();
+			}
+		};
 		
-		p.contains("a")
-				)
+		Predicate<String> p = new Predicate<String>() {
+			
+			@Override
+			public boolean test(String t) {
+				
+				return t.contains("a");
+			}
+		};
+		list.stream().map(s).filter(p).forEach((t)->System.out.println(t));
 		
-		.forEach(System.out::println);
 		studentResponse.setStudents(list);
 
 		studentResponse.setUsername("A4Tech");
@@ -140,7 +152,7 @@ public class StudentController {
 			StudentEntity entity = finded.get();
 			if (entity.getTeacherId() == teacherId) {
 				repository.save(s);
-				//userRepo.saveByUser(entity.getUsername());
+				userRepo.saveByUser(entity.getUsername());
 			} 
 			else {
 				throw new OurRuntimeException(null, "Basqa telebeni update ede bilmezsiz");

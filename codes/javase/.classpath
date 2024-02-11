@@ -8,7 +8,10 @@
 	<classpathentry kind="src" path="src15"/>
 	<classpathentry kind="src" path="src16"/>
 	<classpathentry kind="src" path="src17/collections"/>
-	<classpathentry kind="src" path="src18"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

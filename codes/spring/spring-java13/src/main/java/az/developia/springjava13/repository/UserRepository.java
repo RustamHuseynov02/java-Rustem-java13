@@ -11,7 +11,7 @@ import az.developia.springjava13.entity.UserEntity;
 @Transactional
 public interface UserRepository extends JpaRepository<UserEntity, String> {
 
-	@Query(value = "UPDATE from users where username=?1",nativeQuery = true)
+	@Query(value = "UPDATE users SET username=?1 where username=?2",nativeQuery = true)
 	@Modifying
 	void saveByUser(String username);
 
