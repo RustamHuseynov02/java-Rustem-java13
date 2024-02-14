@@ -12,7 +12,7 @@ function loadStudents( ){
         });
     }
     
-    xml.open('GET','http://localhost:9056/students',true);
+    xml.open('GET','http://localhost:9056/students/html',true);
     
     xml.send();
     

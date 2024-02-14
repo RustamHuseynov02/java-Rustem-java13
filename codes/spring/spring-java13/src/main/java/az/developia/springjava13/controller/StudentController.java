@@ -53,9 +53,18 @@ public class StudentController {
 	
 	private final AuthorityRepository authorityRepository;
 	
+	
+	@GetMapping(path = "/html")
+	public StudentResponse list() {
+		StudentResponse response = new StudentResponse();
+		List<StudentEntity> s = repository.findAll();
+		response.setStudents(s);
+		response.setUsername("aaa");
+		return response;
+	}
 
 	@GetMapping
-	//@PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
+	@PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
 	@ApiOperation(value = "burada mellimin id-sine gore butun telebeleri qaytarir",notes = "qeyd")
 	public StudentResponse getList() {
 		StudentResponse studentResponse = new StudentResponse();
@@ -63,28 +72,28 @@ public class StudentController {
 		// deyisenin setter metoduna findAll(hamisini
 		// qaytaririq)bazada olan butun melumatlari
 
-		//String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		//TeacherEntity operatorTeacher = teacherRepository.findByUsername(username);
-		//Integer teacherId = operatorTeacher.getId();
-		List<StudentEntity> list = repository.findAll();
-		//Function<StudentEntity, String> s = new Function<StudentEntity, String>() {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		TeacherEntity operatorTeacher = teacherRepository.findByUsername(username);
+		Integer teacherId = operatorTeacher.getId();
+		List<StudentEntity> list = repository.findAllByTeacherId(teacherId);
+		Function<StudentEntity, String> s = new Function<StudentEntity, String>() {
 			
-//			@Override
-//			public String apply(StudentEntity t) {
-//				return t.getName();
-//			}
-//		};
-//		
-//		Predicate<String> p = new Predicate<String>() {
-//			
-//			@Override
-//			public boolean test(String t) {
-//				
-//				return t.contains("a");
-//			}
-//		};
-//		list.stream().map(s).filter(p).forEach((t)->System.out.println(t));
-//		
+			@Override
+			public String apply(StudentEntity t) {
+				return t.getName();
+			}
+		};
+		
+		Predicate<String> p = new Predicate<String>() {
+			
+			@Override
+			public boolean test(String t) {
+				
+				return t.contains("a");
+			}
+		};
+		list.stream().map(s).filter(p).forEach((t)->System.out.println(t));
+		
 		studentResponse.setStudents(list);
 
 		studentResponse.setUsername("A4Tech");
