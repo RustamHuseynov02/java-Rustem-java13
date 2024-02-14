@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,11 +32,16 @@ import az.developia.springjava13.repository.StudentRepository;
 import az.developia.springjava13.repository.TeacherRepository;
 import az.developia.springjava13.repository.UserRepository;
 import az.developia.springjava13.response.StudentResponse;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping(path = "/students")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
+@Api(description = "burada telebelerin crud emeliyyati olur")
 public class StudentController {
 
 	
@@ -49,35 +55,36 @@ public class StudentController {
 	
 
 	@GetMapping
-	@PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
+	//@PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
+	@ApiOperation(value = "burada mellimin id-sine gore butun telebeleri qaytarir",notes = "qeyd")
 	public StudentResponse getList() {
 		StudentResponse studentResponse = new StudentResponse();
 		// burada bizim studentResponse classimiz icinde olan
 		// deyisenin setter metoduna findAll(hamisini
 		// qaytaririq)bazada olan butun melumatlari
 
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		TeacherEntity operatorTeacher = teacherRepository.findByUsername(username);
-		Integer teacherId = operatorTeacher.getId();
-		List<StudentEntity> list = repository.findAllByTeacherId(teacherId);
-		Function<StudentEntity, String> s = new Function<StudentEntity, String>() {
+		//String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		//TeacherEntity operatorTeacher = teacherRepository.findByUsername(username);
+		//Integer teacherId = operatorTeacher.getId();
+		List<StudentEntity> list = repository.findAll();
+		//Function<StudentEntity, String> s = new Function<StudentEntity, String>() {
 			
-			@Override
-			public String apply(StudentEntity t) {
-				return t.getName();
-			}
-		};
-		
-		Predicate<String> p = new Predicate<String>() {
-			
-			@Override
-			public boolean test(String t) {
-				
-				return t.contains("a");
-			}
-		};
-		list.stream().map(s).filter(p).forEach((t)->System.out.println(t));
-		
+//			@Override
+//			public String apply(StudentEntity t) {
+//				return t.getName();
+//			}
+//		};
+//		
+//		Predicate<String> p = new Predicate<String>() {
+//			
+//			@Override
+//			public boolean test(String t) {
+//				
+//				return t.contains("a");
+//			}
+//		};
+//		list.stream().map(s).filter(p).forEach((t)->System.out.println(t));
+//		
 		studentResponse.setStudents(list);
 
 		studentResponse.setUsername("A4Tech");

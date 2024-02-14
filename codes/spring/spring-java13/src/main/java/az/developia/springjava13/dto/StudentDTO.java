@@ -2,6 +2,8 @@ package az.developia.springjava13.dto;
 
 import javax.validation.constraints.Size;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +13,7 @@ import lombok.ToString;
 @Setter
 @Builder
 @ToString
+@ApiModel(description = "burasi gelen requesti qarsilayan yerdir ")
 public class StudentDTO {
 
 	private Integer id;
@@ -23,6 +26,7 @@ public class StudentDTO {
 	@Size(max = 30, min = 2, message = "sizin adiniz qaydalara uygun deyil")
 	private String password;
 	@Size(max = 30, min = 2, message = "sizin adiniz qaydalara uygun deyil")
+	@ApiModelProperty(notes = "burada variablede")
 	private String email;
 	@Size(max = 30, min = 2, message = "sizin adiniz qaydalara uygun deyil")
 	private String type;
