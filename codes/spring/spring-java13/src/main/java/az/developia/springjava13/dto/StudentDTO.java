@@ -2,6 +2,7 @@ package az.developia.springjava13.dto;
 
 import javax.validation.constraints.Size;
 
+import az.developia.springjava13.annotation.myAnnotation;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
@@ -19,6 +20,7 @@ public class StudentDTO {
 	private Integer id;
 	@Size(max = 30, min = 2, message = "sizin adiniz qaydalara uygun deyil")
 	private String name;
+	@myAnnotation(value = "a")
 	@Size(max = 30, min = 2, message = "sizin adiniz qaydalara uygun deyil")
 	private String surname;
 	@Size(max = 30, min = 2, message = "sizin adiniz qaydalara uygun deyil")
