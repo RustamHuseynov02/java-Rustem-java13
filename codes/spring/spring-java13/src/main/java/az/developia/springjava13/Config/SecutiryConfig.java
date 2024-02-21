@@ -45,8 +45,9 @@ public class SecutiryConfig extends WebSecurityConfigurerAdapter{
 				.anyRequest().authenticated().and()
 
 				.httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		         http.headers().frameOptions().disable();    
 
-	
+                	
 
 	}
 }
