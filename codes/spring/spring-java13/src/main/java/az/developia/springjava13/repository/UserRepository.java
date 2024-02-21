@@ -13,7 +13,8 @@ public interface UserRepository extends JpaRepository<UserEntity, String> {
 
 	@Query(value = "UPDATE users SET username=?1 where username=?2",nativeQuery = true)
 	@Modifying
-	void saveByUser(String username);
+	void saveByUser(String username,String newUsername);
+
 
 
 	

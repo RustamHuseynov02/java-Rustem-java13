@@ -27,7 +27,7 @@ public class BookEntity {
 	private Integer pageCount;
 
 	private String author;
-	
+
 	private Integer ownerId;
 
 }

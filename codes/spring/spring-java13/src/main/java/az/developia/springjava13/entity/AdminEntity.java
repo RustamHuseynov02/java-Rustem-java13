@@ -1,24 +1,19 @@
 package az.developia.springjava13.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
-
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
+@Entity
+@Table(name = "admins")
 @Getter
 @Setter
-@ToString
-@Entity
-@Table(name = "sellers")
-public class DealerEntity {
+public class AdminEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,8 +25,4 @@ public class DealerEntity {
 	
 	private String username;
 	
-
-
-	
-
 }

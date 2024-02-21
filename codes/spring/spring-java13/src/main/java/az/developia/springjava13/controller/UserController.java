@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import az.developia.springjava13.dto.AdminDTO;
 import az.developia.springjava13.dto.DealerDTO;
 import az.developia.springjava13.dto.OwnerDTO;
 import az.developia.springjava13.dto.StudentDTO;
 import az.developia.springjava13.dto.TeacherDTO;
+import az.developia.springjava13.entity.AdminEntity;
 import az.developia.springjava13.entity.AuthorityEntity;
 import az.developia.springjava13.entity.DealerEntity;
 import az.developia.springjava13.entity.OwnerEntity;
@@ -27,6 +29,7 @@ import az.developia.springjava13.entity.StudentEntity;
 import az.developia.springjava13.entity.TeacherEntity;
 import az.developia.springjava13.entity.UserEntity;
 import az.developia.springjava13.exception.OurRuntimeException;
+import az.developia.springjava13.repository.AdminRepository;
 import az.developia.springjava13.repository.AuthorityRepository;
 import az.developia.springjava13.repository.DealerRepository;
 import az.developia.springjava13.repository.OwnerRepository;
@@ -52,6 +55,50 @@ public class UserController {
 	private final StudentRepository studentRepository;
 	
 	private final OwnerRepository ownerRepository;
+	
+	private final AdminRepository adminRepository;
+	
+	
+	@PostMapping(path = "admin")
+	public void addAdmin(@Valid @RequestBody AdminDTO a,BindingResult br) {
+		if (br.hasErrors()) {
+			throw new OurRuntimeException(br, "melumatin tamliginda problem var");
+		}
+		
+		Optional<UserEntity> check = userRepository.findById(a.getUsername());
+		if (check.isPresent()) {
+			throw new OurRuntimeException(null, "bu username artiq istifade olunub");
+		}
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		AdminEntity entity = new AdminEntity();
+		entity.setName(a.getName());
+		entity.setSurname(a.getSurname());
+		entity.setUsername(a.getUsername());
+        adminRepository.save(entity);
+        
+        
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUsername(a.getUsername());
+        String raw = a.getPassword();
+        String pass = "{bcrypt}" + encoder.encode(raw);
+        userEntity.setPassword(pass);
+        userEntity.setEmail(a.getEmail());
+        userEntity.setEnabled(1);
+        userEntity.setType("Admin");
+        userRepository.save(userEntity);
+        
+        AuthorityEntity authorityEntity = new AuthorityEntity();
+        authorityEntity.setAuthority("");
+        authorityEntity.setUsername(userEntity.getUsername());
+        authorityRepository.save(authorityEntity);
+		
+		
+		
+	}
+	
+	
 	
 	@PostMapping(path = "/teacher")
 	public void createTeacher(@RequestBody TeacherDTO t) {

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import az.developia.springjava13.dto.StudentDTO;
+import az.developia.springjava13.dto.StudentUpdateDTO;
 import az.developia.springjava13.entity.AuthorityEntity;
 import az.developia.springjava13.entity.StudentEntity;
 import az.developia.springjava13.entity.TeacherEntity;
@@ -148,14 +149,16 @@ public class StudentController {
 
 	@PutMapping
 	@PreAuthorize("hasAuthority('ROLE_UPDATE_STUDENT')")
-	public void update(@Valid @RequestBody StudentEntity s, BindingResult br) {
+	public void update(@Valid @RequestBody StudentUpdateDTO s, BindingResult br) {
 		// 0 olmasi,var olmuyan id olmasi,null olmasi,dogru id-ni verib redakte etmek
 		// crud emeliyati
-		if (s.getId() == null || s.getId() <= 0) {
+		if (s.getTeacherId() == null || s.getTeacherId() <= 0) {
 			throw new OurRuntimeException(br, "id-ni duzgun qeyd edin"); // bu mapping bizim save olan data-mizi id
 																			// sine gore goturub
 		} // redakte ede bilir 
 
+		String newUsername = s.getUsername();
+		
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		TeacherEntity operatorTeacher = teacherRepository.findByUsername(username);
 		if (operatorTeacher == null) {
@@ -163,12 +166,12 @@ public class StudentController {
 		}
 		Integer teacherId = operatorTeacher.getId();
 		
-		Optional<StudentEntity> finded = repository.findById(s.getId());
+		Optional<StudentEntity> finded = repository.findById(s.getTeacherId());
 		if (finded.isPresent()) {
 			StudentEntity entity = finded.get();
 			if (entity.getTeacherId() == teacherId) {
-				repository.save(s);
-				userRepo.saveByUser(entity.getUsername());
+				repository.save(entity);
+				userRepo.saveByUser(entity.getUsername(),newUsername);
 			} 
 			else {
 				throw new OurRuntimeException(null, "Basqa telebeni update ede bilmezsiz");

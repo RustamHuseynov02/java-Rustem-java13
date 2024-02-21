@@ -13,8 +13,6 @@ import lombok.ToString;
 @ToString
 public class TeacherDTO {
 
-	@Min(value = 0 , message = "menfi olmaz" )
-	private Integer id;
 	@Size(max = 30, min = 2, message = "sizin adiniz qaydalara uygun deyil")
 	private String name;
 	@Size(max = 30, min = 2, message = "sizin adiniz qaydalara uygun deyil")

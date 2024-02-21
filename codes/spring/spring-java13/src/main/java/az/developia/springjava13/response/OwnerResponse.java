@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class OwnerResponse {
 
-	List<OwnerEntity> list;
+	private List<OwnerEntity> list;
 	
 	
 }

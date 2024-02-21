@@ -8,10 +8,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BookResponse {
+public class DealerResponse {
 
-	private Iterable<BookEntity> books;
+	private List<BookEntity> books;
 	
-	
+
 	
 }

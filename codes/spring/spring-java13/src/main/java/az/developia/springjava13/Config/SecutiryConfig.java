@@ -37,6 +37,7 @@ public class SecutiryConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers(HttpMethod.POST, "/users/owner").permitAll()
 		.antMatchers(HttpMethod.GET, "/students/html").permitAll()
 		.antMatchers(HttpMethod.GET, "/owners").permitAll()
+		.antMatchers(HttpMethod.POST, "/users/admin").permitAll()
 		
 
 		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()

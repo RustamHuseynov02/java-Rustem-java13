@@ -1,5 +1,6 @@
 package az.developia.springjava13.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,10 +22,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import az.developia.springjava13.dto.BookDTO;
 import az.developia.springjava13.entity.BookEntity;
+import az.developia.springjava13.entity.DealerEntity;
 import az.developia.springjava13.entity.OwnerEntity;
+import az.developia.springjava13.entity.UserEntity;
 import az.developia.springjava13.exception.OurRuntimeException;
 import az.developia.springjava13.repository.BookRepository;
+import az.developia.springjava13.repository.DealerRepository;
 import az.developia.springjava13.repository.OwnerRepository;
+import az.developia.springjava13.repository.UserRepository;
 import az.developia.springjava13.response.BookResponse;
 import lombok.RequiredArgsConstructor;
 
@@ -38,6 +43,11 @@ public class BookController {
 
 	private final OwnerRepository ownerRepository;
 	
+	private final UserRepository userRepository;
+	
+	private final DealerRepository dealerRepository;
+	
+	
 	
 	@GetMapping
 	@PreAuthorize(value = " hasAuthority('ROLE_GET_ALL_BOOK')")
@@ -45,12 +55,14 @@ public class BookController {
 		BookResponse response = new BookResponse();
 		
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		OwnerEntity ownerOperator = ownerRepository.findByUsername(username);
-		if (ownerOperator == null) {
-			throw new OurRuntimeException(null, "");
+		OwnerEntity entity = ownerRepository.findByUsername(username);
+		if (entity==null) {
+			throw new OurRuntimeException(null, "bele bir istifadeci yoxdu");
 		}
-		Integer ownerId = ownerOperator.getId();
-		List<BookEntity> list = repository.findAllByOwnerId(ownerId);
+		Integer ownerId = entity.getId();
+		
+	    List<BookEntity> list = repository.findAllByOwnerId(ownerId);
+		
 		
 		response.setBooks(list);
 		
@@ -155,6 +167,8 @@ public class BookController {
         Integer ownerId = operator.getId();
         
 		Optional<BookEntity> optional = repository.findById(id);
+		
+		
 		if (optional.isPresent()) {
 			BookEntity entity = optional.get();
 			if (entity.getOwnerId() == ownerId) {

@@ -10,8 +10,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class DealerDTO {
-
+public class AdminDTO {
 
 	@Size(min = 2, max = 20, message = "2 ile 20 arasinda ad daxil edin")
 	private String name;
