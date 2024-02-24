@@ -1,19 +1,15 @@
-package az.developia.springjava13.dto;
-
+package az.developia.springjava13.response;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
-public class StudentUpdateDTO {
+@ToString
+public class StudentUpdateResponse {
 
-	private Integer id;
 	private String name;
 	private String username;
 	private String password;
-
-	
-	private Integer teacherId;
 }
-
