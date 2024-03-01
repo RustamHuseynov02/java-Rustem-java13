@@ -1,16 +1,11 @@
 package az.developia.springjava13.controller;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,15 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import az.developia.springjava13.dto.BookDTO;
 import az.developia.springjava13.entity.BookEntity;
-import az.developia.springjava13.entity.DealerEntity;
 import az.developia.springjava13.entity.OwnerEntity;
-import az.developia.springjava13.entity.UserEntity;
 import az.developia.springjava13.exception.OurRuntimeException;
 import az.developia.springjava13.repository.BookRepository;
 import az.developia.springjava13.repository.DealerRepository;
 import az.developia.springjava13.repository.OwnerRepository;
 import az.developia.springjava13.repository.UserRepository;
 import az.developia.springjava13.response.BookResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController

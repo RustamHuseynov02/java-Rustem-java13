@@ -2,11 +2,8 @@ package az.developia.springjava13.controller;
 
 
 
-import javax.validation.Valid;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,23 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import az.developia.springjava13.dto.StudentDTO;
 import az.developia.springjava13.dto.StudentUpdateDTO;
-import az.developia.springjava13.entity.AuthorityEntity;
-import az.developia.springjava13.entity.StudentEntity;
-import az.developia.springjava13.entity.TeacherEntity;
-import az.developia.springjava13.entity.UserEntity;
-import az.developia.springjava13.exception.OurRuntimeException;
-import az.developia.springjava13.repository.AuthorityRepository;
-import az.developia.springjava13.repository.StudentRepository;
-import az.developia.springjava13.repository.TeacherRepository;
-import az.developia.springjava13.repository.UserRepository;
 import az.developia.springjava13.request.StudentAddRequest;
-import az.developia.springjava13.response.StudentResponse;
 import az.developia.springjava13.service.StudentService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController

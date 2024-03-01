@@ -3,17 +3,13 @@ package az.developia.springjava13.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import az.developia.springjava13.dto.StudentUpdateDTO;
 import az.developia.springjava13.entity.AuthorityEntity;
-import az.developia.springjava13.entity.BookEntity;
 import az.developia.springjava13.entity.StudentEntity;
 import az.developia.springjava13.entity.TeacherEntity;
 import az.developia.springjava13.entity.UserEntity;
@@ -26,6 +22,7 @@ import az.developia.springjava13.response.StudentAddResponse;
 import az.developia.springjava13.response.StudentDeleteResponse;
 import az.developia.springjava13.response.StudentResponse;
 import az.developia.springjava13.response.StudentUpdateResponse;
+import jakarta.validation.Valid;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 

@@ -1,9 +1,10 @@
 package az.developia.springjava13.annotationClass;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+
 
 import az.developia.springjava13.annotation.myAnnotation;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 
 

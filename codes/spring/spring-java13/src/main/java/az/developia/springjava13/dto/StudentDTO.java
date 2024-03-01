@@ -1,10 +1,9 @@
 package az.developia.springjava13.dto;
 
-import javax.validation.constraints.Size;
-
 import az.developia.springjava13.annotation.myAnnotation;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

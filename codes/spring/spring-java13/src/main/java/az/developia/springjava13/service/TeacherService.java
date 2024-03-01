@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import az.developia.springjava13.entity.TeacherEntity;
 import az.developia.springjava13.exception.OurRuntimeException;
 import az.developia.springjava13.repository.TeacherRepository;
-import az.developia.springjava13.response.StudentResponse;
 import lombok.RequiredArgsConstructor;
 
 @Service
