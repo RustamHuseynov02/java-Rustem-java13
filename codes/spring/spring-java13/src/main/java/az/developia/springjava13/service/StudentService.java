@@ -3,6 +3,7 @@ package az.developia.springjava13.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -40,6 +41,8 @@ public class StudentService {
 	private final UserRepository userRepo;
 	
 	private final AuthorityRepository authorityRepository;
+	
+	private final ModelMapper mapper;
 	
 	
 	
@@ -87,17 +90,12 @@ public class StudentService {
 		
 
 		StudentEntity entity = new StudentEntity();
-		entity.setName(s.getName());
-		entity.setSurname(s.getSurname());
-		entity.setUsername(s.getUsername());
+		mapper.map(s, entity);
 		entity.setTeacherId(teacherId);
 		repository.save(entity);
 
 		UserEntity userEntity = new UserEntity();
-		userEntity.setUsername(s.getUsername());
-		userEntity.setPassword(s.getPassword());
-		userEntity.setType(s.getType());
-		userEntity.setEmail(s.getEmail());
+		mapper.map(s, userEntity);
 		userEntity.setEnabled(1);
 		userRepo.save(userEntity);
 
@@ -108,9 +106,7 @@ public class StudentService {
 		
 	    StudentAddResponse resp = new StudentAddResponse();
 	    resp.setEmail(userEntity.getEmail());
-	    resp.setId(entity.getId());
-	    resp.setName(entity.getName());
-	    resp.setSurname(entity.getSurname());
+	    mapper.map(entity, resp);
 	    
 	    return ResponseEntity.ok(resp);
 
