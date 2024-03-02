@@ -4,23 +4,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Size;
+import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name = "authorities")
 @Getter
 @Setter
-public class Student {
+public class Authority {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Size(min = 2,max = 20,message = "Adı doğru daxil edin")
-	private String name;
-	@Size(min = 2,max = 20,message = "Soyadı doğru daxil edin")
-	private String surname;
+	private String username;
+	
+	private String authority;
 }
-

@@ -2,6 +2,8 @@ package az.developia.course.restcontroller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +19,6 @@ import az.developia.course.entity.StudentNote;
 import az.developia.course.exception.OurRuntimeException;
 import az.developia.course.repository.StudentNoteRepository;
 import az.developia.course.repository.StudentRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController

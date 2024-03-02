@@ -1,6 +1,11 @@
 let API_URL = "http://localhost:9999";
 
+let username = localStorage.getItem('username');
+let password = localStorage.getItem('password');
+let token = "Basic " + window.btoa(username+":"+password);
+
 let selectedStudentId = 0;
+
 function onSaveStudent(event) {
     event.preventDefault();
 
@@ -46,6 +51,7 @@ function onSaveStudent(event) {
 
     xml.open("POST", API_URL + "/students", true);
     xml.setRequestHeader('Content-type', 'application/json');
+    xml.setRequestHeader("Authorization",token)
     xml.send(requset);
 }
 
@@ -64,6 +70,7 @@ function loadAddStudents() {
 
 
     xml.open("GET", API_URL + "/students", true);
+    xml.setRequestHeader("Authorization",token)
     xml.send();
 }
 
@@ -94,6 +101,7 @@ function fillStudentsTable(students) {
     }
 
     studentsTbody.innerHTML = studentsTbodyHtml;
+    let table = new DataTable('#students-table');
 }
 
 
@@ -108,6 +116,7 @@ function onStudentsDelete(studentId) {
 
 
         xml.open("DELETE", API_URL + "/students/" + studentId, true);
+        xml.setRequestHeader("Authorization",token)
         xml.send();
     }
 
@@ -127,6 +136,7 @@ function onStudentsUpdate(studentId) {
 
 
     xml.open("GET", API_URL + "/students/" + studentId, true);
+    xml.setRequestHeader("Authorization",token)
     xml.send();
 }
 
@@ -150,6 +160,7 @@ function onStudentsNote(studentId) {
 
 
     xml.open("GET", API_URL + "/students/" + studentId, true);
+    xml.setRequestHeader("Authorization",token)
     xml.send();
 }
 
@@ -174,6 +185,7 @@ function onSaveStudentNote(event) {
     }
     xml.open("POST", API_URL + "/student-note", true);
     xml.setRequestHeader('Content-type', 'application/json');
+    xml.setRequestHeader("Authorization",token)
     xml.send(requset);
 }
 
@@ -212,5 +224,6 @@ function loadAddStudentNotes(studentId) {
 
 
     xml.open("GET", API_URL + "/student-note/"+studentId, true);
+    xml.setRequestHeader("Authorization",token)
     xml.send();
 }
