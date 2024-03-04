@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,15 +38,13 @@ public class StudentService {
 	private final SecutiryService secutiryService;
 
 	private final TeacherService teacherService;
-	
+
 	private final UserRepository userRepo;
-	
+
 	private final AuthorityRepository authorityRepository;
-	
+
 	private final ModelMapper mapper;
-	
-	
-	
+
 	public ResponseEntity<Object> findAll() {
 		StudentResponse response = new StudentResponse();
 
@@ -74,7 +73,9 @@ public class StudentService {
 
 	}
 
-	public ResponseEntity<Object> add(@Valid @RequestBody StudentAddRequest s, BindingResult br) { // burada valid annotasiyasi gelen
+	public ResponseEntity<Object> add(@Valid @RequestBody StudentAddRequest s, BindingResult br) { // burada valid
+																									// annotasiyasi
+																									// gelen
 		// requestin dogrulunu yoxlayir eger webden
 		// gelen sorgu
 // @valid-in qoydugu qaydalara uygun deyilse
@@ -86,8 +87,6 @@ public class StudentService {
 
 		TeacherEntity teacher = teacherService.entity(secutiryService.findByUsername());
 		Integer teacherId = teacher.getId();
-
-		
 
 		StudentEntity entity = new StudentEntity();
 		mapper.map(s, entity);
@@ -103,81 +102,74 @@ public class StudentService {
 		authorityEntity.setAuthority("ROLE_GET_ID_STUDENT");
 		authorityEntity.setUsername(userEntity.getUsername());
 		authorityRepository.save(authorityEntity);
-		
-	    StudentAddResponse resp = new StudentAddResponse();
-	    resp.setEmail(userEntity.getEmail());
-	    mapper.map(entity, resp);
-	    
-	    return ResponseEntity.ok(resp);
+
+		StudentAddResponse resp = new StudentAddResponse();
+		resp.setEmail(userEntity.getEmail());
+		mapper.map(entity, resp);
+
+		return ResponseEntity.ok(resp);
 
 	}
 
 	public ResponseEntity<Object> findByIdtoUpdate(@Valid @RequestBody StudentUpdateDTO dto, BindingResult br) {
 		// 0 olmasi,var olmuyan id olmasi,null olmasi,dogru id-ni verib redakte etmek
-				// crud emeliyati
-				if (dto.getTeacherId() == null || dto.getTeacherId() <= 0) {
-					throw new OurRuntimeException(br, "id-ni duzgun qeyd edin"); // bu mapping bizim save olan data-mizi id
-																					// sine gore goturub
-				} // redakte ede bilir 
-				TeacherEntity teacher = teacherService.entity(secutiryService.findByUsername());
-				if (teacher == null) {
-					throw new OurRuntimeException(null, "Bele bir mellim tapilmadi");
-				}
-				Integer teacherId = teacher.getId();
-				
-				StudentEntity en = repository.findById(dto.getId()).orElseThrow(()->new OurRuntimeException(null, "bele bir telebe tapilmadi"));
-			    en.setName(dto.getName());
-			    en.setUsername(dto.getUsername());
-				en.setTeacherId(dto.getTeacherId());
-				
-				UserEntity user = new UserEntity();
-				user.setUsername(dto.getUsername());
-				user.setPassword(dto.getPassword());
-				
-				AuthorityEntity auEntity = new AuthorityEntity();
-				auEntity.setUsername(dto.getUsername());
-					if (en.getTeacherId() == teacherId) {
-						repository.save(en);
-						userRepo.save(user);
-						authorityRepository.save(auEntity);
-					} 
-					else {
-						throw new OurRuntimeException(null, "Basqa telebeni update ede bilmezsiz");
-					}		
+		// crud emeliyati
+		if (dto.getTeacherId() == null || dto.getTeacherId() <= 0) {
+			throw new OurRuntimeException(br, "id-ni duzgun qeyd edin"); // bu mapping bizim save olan data-mizi id
+																			// sine gore goturub
+		} // redakte ede bilir
+		TeacherEntity teacher = teacherService.entity(secutiryService.findByUsername());
+		if (teacher == null) {
+			throw new OurRuntimeException(null, "Bele bir mellim tapilmadi");
+		}
+		Integer teacherId = teacher.getId();
+		
+		StudentEntity en = repository.findById(dto.getId()).orElseThrow(() -> new OurRuntimeException(null, "bele bir telebe tapilmadi"));
+		mapper.map(dto, en);
 
-					StudentUpdateResponse response = new StudentUpdateResponse();
-					response.setName(dto.getName());
-					response.setUsername(dto.getUsername());
-					response.setPassword(dto.getPassword());
+		UserEntity user = new UserEntity();
+		mapper.map(dto, user);
+
+		AuthorityEntity auEntity = new AuthorityEntity();
+		auEntity.setUsername(dto.getUsername());
+		if (en.getTeacherId() == teacherId) {
+			repository.save(en);
+			userRepo.save(user);
+			authorityRepository.save(auEntity);
+		} else {
+			throw new OurRuntimeException(null, "Basqa telebeni update ede bilmezsiz");
+		}
+
+		StudentUpdateResponse response = new StudentUpdateResponse();
+		mapper.map(dto, response);
 		return ResponseEntity.ok(response);
 	}
 
 	public ResponseEntity<Object> findByIdToDelete(Integer id) {
 		// 0 olmasi,var olmuyan id olmasi,null olmasi,dogru id-ni ver silim
-				if (id == null || id <= 0) {
-					throw new OurRuntimeException(null, "id yanlisdir duzgun qeyd edin");
-				}
-				TeacherEntity teacher = teacherService.entity(secutiryService.findByUsername());
-				if (teacher == null) {
-					throw new OurRuntimeException(null, "bele bir mellim tapilmadi");
-				}
-				Integer teacherId = teacher.getId();
-				
-				StudentEntity en = repository.findById(id).orElseThrow(() -> new OurRuntimeException(null, "id tapilmadi"));
-					if (en.getTeacherId() == teacherId) {
-						repository.deleteById(id);
-		            	userRepo.deleteById(en.getUsername());
-		            	authorityRepository.deleteByUserAuthorities(en.getUsername());
-					}
-					else {
-						throw new OurRuntimeException(null, "bu telebeni sile bilmezsen");
-					}
-					
-					StudentDeleteResponse response = new StudentDeleteResponse();
-					response.setId(id);
-					response.setUsername(en.getUsername());
-					response.setMessage("bu telebe silindi");
-					
+		if (id == null || id <= 0) {
+			throw new OurRuntimeException(null, "id yanlisdir duzgun qeyd edin");
+		}
+		TeacherEntity teacher = teacherService.entity(secutiryService.findByUsername());
+		if (teacher == null) {
+			throw new OurRuntimeException(null, "bele bir mellim tapilmadi");
+		}
+		Integer teacherId = teacher.getId();
+
+		StudentEntity en = repository.findById(id).orElseThrow(() -> new OurRuntimeException(null, "id tapilmadi"));
+		if (en.getTeacherId() == teacherId) {
+			repository.deleteById(id);
+			userRepo.deleteById(en.getUsername());
+			authorityRepository.deleteByUserAuthorities(en.getUsername());
+		} else {
+			throw new OurRuntimeException(null, "bu telebeni sile bilmezsen");
+		}
+
+		StudentDeleteResponse response = new StudentDeleteResponse();
+		response.setId(id);
+		response.setUsername(en.getUsername());
+		response.setMessage("bu telebe silindi");
+
 		return ResponseEntity.ok(response);
 	}
 
@@ -193,13 +185,12 @@ public class StudentService {
 		Optional<StudentEntity> optional = repository.findById(id);
 		if (optional.isPresent()) {
 			StudentEntity en = optional.get();
-			if (en.getTeacherId()==teacherId) {
+			if (en.getTeacherId() == teacherId) {
 				return ResponseEntity.ok(optional.get());
-			}
-			else {
+			} else {
 				throw new OurRuntimeException(null, "bu telebeni cagira bilmezsen");
 			}
-			
+
 		} else {
 			throw new OurRuntimeException(null, "id tapilmadi");
 		}

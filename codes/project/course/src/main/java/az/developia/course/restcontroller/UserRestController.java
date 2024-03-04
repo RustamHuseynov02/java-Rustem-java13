@@ -1,5 +1,10 @@
 package az.developia.course.restcontroller;
 
+import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import az.developia.course.entity.Authority;
 import az.developia.course.entity.User;
+import az.developia.course.exception.OurRuntimeException;
 import az.developia.course.repository.AuthorityRepository;
 import az.developia.course.repository.UserRepository;
+import az.developia.course.request.UserAddRequest;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -24,8 +31,15 @@ public class UserRestController {
 	private final AuthorityRepository authorityRepository;
 	
 	@PostMapping
-	public User add(@RequestBody User user) {
-		user.setPassword("{noop}"+user.getPassword());
+	public User add(@Valid @RequestBody UserAddRequest addUser,BindingResult br) {
+		
+		User user = new User();
+		Optional<User> optional = repository.findById(addUser.getUsername());
+		if (optional.isPresent()) {
+			throw new OurRuntimeException(null, "Bu istifadəçi Adı var");
+		}
+		user.setUsername(addUser.getUsername());
+		user.setPassword("{noop}"+addUser.getPassword());
 		user.setEnabled(true);
 		User entity = repository.save(user);
 		

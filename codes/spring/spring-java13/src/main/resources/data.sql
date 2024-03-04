@@ -2,6 +2,10 @@ insert into users
 (username,password,enabled)
 values('Yusif','{noop}1',1);
 
+insert into teachers
+(username,name,surname)
+values('Yusif','yusif','alizade');
+
 insert into authorities
 (username,authority)
 values 

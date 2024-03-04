@@ -13,7 +13,14 @@ function onSignUp(event){
 
     let requset = JSON.stringify(signUpObject);
     xml.onload = function(){
-        alert("success")
+        let response = this.response;
+        let user = JSON.parse(response)
+        if (user.username == requset.username) {
+            alert("Bu istifadəçi adı sistemdə var")
+        }else{
+           alert("success") 
+        }
+        
     }
 
     xml.open("POST",API_URL+"/users",true);

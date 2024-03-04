@@ -40,8 +40,16 @@ public class SecutiryConfig {
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		return http.csrf().disable().authorizeRequests().requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-				.anyRequest().authenticated().and().httpBasic().and().build();
+	    return http.csrf().disable()
+	        .authorizeRequests()
+	        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+	        .anyRequest().authenticated()
+	        .and()
+	        .httpBasic()
+	        .and()
+	        .headers().frameOptions().disable() // Burada frameOptions'ı devre dışı bırakıyoruz
+	        .and()
+	        .build();
 	}
 	@Bean
 	public AuthenticationProvider authenticationProvider() {

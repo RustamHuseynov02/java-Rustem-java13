@@ -2,7 +2,8 @@ let API_URL = "http://localhost:9999";
 
 let username = localStorage.getItem('username');
 let password = localStorage.getItem('password');
-let token = "Basic " + window.btoa(username+":"+password);
+let token = "Basic " + window.btoa(username + ":" + password);
+let gridOptionsGlobal;
 
 let selectedStudentId = 0;
 
@@ -51,11 +52,11 @@ function onSaveStudent(event) {
 
     xml.open("POST", API_URL + "/students", true);
     xml.setRequestHeader('Content-type', 'application/json');
-    xml.setRequestHeader("Authorization",token)
+    xml.setRequestHeader("Authorization", token)
     xml.send(requset);
 }
 
-loadAddStudents();
+
 
 
 function loadAddStudents() {
@@ -70,38 +71,12 @@ function loadAddStudents() {
 
 
     xml.open("GET", API_URL + "/students", true);
-    xml.setRequestHeader("Authorization",token)
+    xml.setRequestHeader("Authorization", token)
     xml.send();
 }
 
 function fillStudentsTable(students) {
-
-    let studentsTbody = document.getElementById('students-tbody');
-
-    let studentsTbodyHtml = ""
-
-    for (let i = 0; i < students.length; i++) {
-        let student = students[i];
-        studentsTbodyHtml += "<tr><td>" + student.id + "</td>";
-        studentsTbodyHtml += "<td>" + student.name + "</td>";
-        studentsTbodyHtml += "<td>" + student.surname + "</td>";
-
-        studentsTbodyHtml += "<td><button class='btn btn-danger' onClick='onStudentsDelete(" +
-            student.id + ")'>Sil</button> ";
-        studentsTbodyHtml += "<button class='btn btn-primary' onClick='onStudentsUpdate(" +
-            student.id + ")'>Redakte</button> ";
-
-            studentsTbodyHtml += "<button class='btn btn-warning' onClick='onShowStudentNotes(" +
-            student.id + ")' type='button' data-toggle='modal' data-target='#noteListModal'>Qeydlər</button> ";
-
-        studentsTbodyHtml += "<button class='btn btn-secondary' onClick='onStudentsNote ("
-            + student.id + ")' type='button' data-toggle='modal' data-target='#noteModal'"
-            +">Qeyd Yaz</button></td></tr>";
-
-    }
-
-    studentsTbody.innerHTML = studentsTbodyHtml;
-    let table = new DataTable('#students-table');
+    gridOptionsGlobal.api.setRowData(students);
 }
 
 
@@ -116,7 +91,7 @@ function onStudentsDelete(studentId) {
 
 
         xml.open("DELETE", API_URL + "/students/" + studentId, true);
-        xml.setRequestHeader("Authorization",token)
+        xml.setRequestHeader("Authorization", token)
         xml.send();
     }
 
@@ -136,7 +111,7 @@ function onStudentsUpdate(studentId) {
 
 
     xml.open("GET", API_URL + "/students/" + studentId, true);
-    xml.setRequestHeader("Authorization",token)
+    xml.setRequestHeader("Authorization", token)
     xml.send();
 }
 
@@ -160,7 +135,7 @@ function onStudentsNote(studentId) {
 
 
     xml.open("GET", API_URL + "/students/" + studentId, true);
-    xml.setRequestHeader("Authorization",token)
+    xml.setRequestHeader("Authorization", token)
     xml.send();
 }
 
@@ -173,7 +148,7 @@ function onSaveStudentNote(event) {
     let studentNoteObject = {};
     studentNoteObject.note = studentNote;
     studentNoteObject.studentId = selectedStudentId;
-    
+
     let requset = JSON.stringify(studentNoteObject)
     let xml = new XMLHttpRequest();
     xml.onload = function () {
@@ -185,12 +160,12 @@ function onSaveStudentNote(event) {
     }
     xml.open("POST", API_URL + "/student-note", true);
     xml.setRequestHeader('Content-type', 'application/json');
-    xml.setRequestHeader("Authorization",token)
+    xml.setRequestHeader("Authorization", token)
     xml.send(requset);
 }
 
-function onShowStudentNotes(studentId){
-loadAddStudentNotes(studentId)
+function onShowStudentNotes(studentId) {
+    loadAddStudentNotes(studentId)
 }
 
 function fillStudentNotesTable(notes) {
@@ -205,7 +180,7 @@ function fillStudentNotesTable(notes) {
         notesTbodyHtml += "<td>" + note.note + "</td></tr>";
 
 
-        
+
 
     }
 
@@ -223,7 +198,35 @@ function loadAddStudentNotes(studentId) {
     }
 
 
-    xml.open("GET", API_URL + "/student-note/"+studentId, true);
-    xml.setRequestHeader("Authorization",token)
+    xml.open("GET", API_URL + "/student-note/" + studentId, true);
+    xml.setRequestHeader("Authorization", token)
     xml.send();
 }
+
+function prepareAgGridTable() {
+    // Column Definitions: Defines the columns to be displayed.
+    const columnDefs = [
+        { field: "id" ,headerName:"Kod"},
+        { field: "name",headerName:"Ad"},
+        { field: "surname",headerName:"Soyad"}
+    ];
+    // Grid Options: Contains all of the grid configurations
+    const gridOptions = {
+        columnDefs: columnDefs,
+        rowData: [],
+        defaultColDef:{sortable:true,filter:true},
+        animateRows:true,
+        floatingFilter:true,
+        pagination:true,
+        powSelection:'multiple'
+    };
+    gridOptionsGlobal=gridOptions;
+    // Your Javascript code to create the grid
+    document.addEventListener('DOMContentLoaded', () => {
+        const myGridElement = document.querySelector('#myStudents');
+        new agGrid.Grid(myGridElement, gridOptions);
+    })
+}
+
+prepareAgGridTable()
+loadAddStudents();

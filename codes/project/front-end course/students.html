@@ -17,6 +17,8 @@
 
     <script type="text/javascript" charset="UTF-8" src="https://cdn.datatables.net/2.0.0/js/dataTables.min.js"></script>
     <link rel="stylesheet" href="students.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
 </head>
 
 <body>
@@ -40,20 +42,7 @@
     </div>
     <hr>
     <div class="container">
-
-        <table class="table table-bordered" id="students-table">
-            <thead>
-                <tr>
-                    <th>Kod</th>
-                    <th>Ad</th>
-                    <th>Soyad</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="students-tbody">
-                
-            </tbody>
-        </table>
+      <div id="myStudents" class="ag-theme-quartz" style="height: 300px;width: 100%;"></div>
     </div>
 
   <!-- The Modal -->
