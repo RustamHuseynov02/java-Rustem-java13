@@ -21,6 +21,10 @@ public class Student {
 	@Size(min = 2,max = 20,message = "Adı doğru daxil edin")
 	private String name;
 	@Size(min = 2,max = 20,message = "Soyadı doğru daxil edin")
-	private String surname;
+	private String surname; 
+	
+	private String profilePhoto;
+	
+	private String teacher;
 }
 

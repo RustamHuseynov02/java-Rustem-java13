@@ -6,54 +6,26 @@ let token = "Basic " + window.btoa(username + ":" + password);
 let gridOptionsGlobal;
 
 let selectedStudentId = 0;
+let studentProfilePhotoInput = document.getElementById('student-photo');
 
-function onSaveStudent(event) {
+async function onSaveStudent(event) {
     event.preventDefault();
 
-    let studentName = document.getElementById('student-name').value;
-    let studentSurname = document.getElementById('student-surname').value;
-
-    let studentObject = {};
-    studentObject.id = selectedStudentId;
-    studentObject.name = studentName;
-    studentObject.surname = studentSurname;
-
-    let requset = JSON.stringify(studentObject);
-
-
-
-
-    let xml = new XMLHttpRequest();
-
-
-    xml.onload = function () {
-        if (this.status == 400) {
-            let nameError = "";
-            let surnameError = "";
-            let errorObject = JSON.parse(this.responseText);
-            errorObject.validations.forEach(error => {
-                if (error.field == 'name') {
-                    nameError += error.message + "<br>"
-                }
-                if (error.field == 'surname') {
-                    surnameError += error.message + "<br>"
-                }
-            });
-            document.getElementById('name-error').innerHTML = nameError;
-            document.getElementById('surname-error').innerHTML = surnameError;
-        } else {
-            clearErrorMessage();
-            selectedStudentId = 0;
-            loadAddStudents();
+    let formData = new FormData();
+    let photo = studentProfilePhotoInput.files[0];
+    formData.append("file", photo);
+    let response = await fetch(API_URL + '/files/upload', {
+        method: "POST",
+        body: formData,
+        headers: {
+            "Authorization": token
         }
+    });
 
-    }
+    let photoName = await response.json();
 
+    saveStudent(photoName.fileName)
 
-    xml.open("POST", API_URL + "/students", true);
-    xml.setRequestHeader('Content-type', 'application/json');
-    xml.setRequestHeader("Authorization", token)
-    xml.send(requset);
 }
 
 
@@ -206,21 +178,21 @@ function loadAddStudentNotes(studentId) {
 function prepareAgGridTable() {
     // Column Definitions: Defines the columns to be displayed.
     const columnDefs = [
-        { field: "id" ,headerName:"Kod"},
-        { field: "name",headerName:"Ad"},
-        { field: "surname",headerName:"Soyad"}
+        { field: "id", headerName: "Kod" },
+        { field: "name", headerName: "Ad" },
+        { field: "surname", headerName: "Soyad" }
     ];
     // Grid Options: Contains all of the grid configurations
     const gridOptions = {
         columnDefs: columnDefs,
         rowData: [],
-        defaultColDef:{sortable:true,filter:true},
-        animateRows:true,
-        floatingFilter:true,
-        pagination:true,
-        powSelection:'multiple'
+        defaultColDef: { sortable: true, filter: true },
+        animateRows: true,
+        floatingFilter: true,
+        pagination: true,
+        powSelection: 'multiple'
     };
-    gridOptionsGlobal=gridOptions;
+    gridOptionsGlobal = gridOptions;
     // Your Javascript code to create the grid
     document.addEventListener('DOMContentLoaded', () => {
         const myGridElement = document.querySelector('#myStudents');
@@ -230,3 +202,46 @@ function prepareAgGridTable() {
 
 prepareAgGridTable()
 loadAddStudents();
+
+
+function saveStudent(photo) {
+
+    let studentName = document.getElementById('student-name').value;
+    let studentSurname = document.getElementById('student-surname').value;
+
+    let studentObject = {};
+    studentObject.id = selectedStudentId;
+    studentObject.name = studentName;
+    studentObject.surname = studentSurname;
+    studentObject.profilePhoto = photo;
+
+    let requset = JSON.stringify(studentObject);
+
+    let xml = new XMLHttpRequest();
+
+    xml.onload = function () {
+        if (this.status == 400) {
+            let nameError = "";
+            let surnameError = "";
+            let errorObject = JSON.parse(this.responseText);
+            errorObject.validations.forEach(error => {
+                if (error.field == 'name') {
+                    nameError += error.message + "<br>"
+                }
+                if (error.field == 'surname') {
+                    surnameError += error.message + "<br>"
+                }
+            });
+            document.getElementById('name-error').innerHTML = nameError;
+            document.getElementById('surname-error').innerHTML = surnameError;
+        } else {
+            clearErrorMessage();
+            selectedStudentId = 0;
+            loadAddStudents();
+        }
+    }
+    xml.open("POST", API_URL + "/students", true);
+    xml.setRequestHeader('Content-type', 'application/json');
+    xml.setRequestHeader("Authorization", token)
+    xml.send(requset);
+}

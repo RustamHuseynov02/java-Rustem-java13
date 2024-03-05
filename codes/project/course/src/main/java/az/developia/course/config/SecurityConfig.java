@@ -30,6 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.anyRequest()
 		.authenticated()
 		.and()
+		.headers().frameOptions().disable()
+		.and()
 		.httpBasic();
 	}
 	@Override
