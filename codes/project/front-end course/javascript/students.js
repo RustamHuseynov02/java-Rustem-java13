@@ -52,45 +52,54 @@ function fillStudentsTable(students) {
 }
 
 
-function onStudentsDelete(studentId) {
-    if (confirm("silməyə əminsiz?")) {
+function onStudentsDelete() {
+    let selectedStudents = gridOptionsGlobal.api.getSelectedRows();
+    if (selectedStudents.length>0) {
+        if (confirm("silməyə əminsiz?")) {
+        let studentId = selectedStudents[0].id;
         let xml = new XMLHttpRequest();
-
-
         xml.onload = function () {
             loadAddStudents();
         }
-
-
         xml.open("DELETE", API_URL + "/students/" + studentId, true);
         xml.setRequestHeader("Authorization", token)
         xml.send();
     }
+    }else{
+        alert("minimum bir tələbə silinməlidi!")
+    }
+
+    
 
 }
 
-function onStudentsUpdate(studentId) {
+function onStudentsUpdate() {
+    let selectedStudents = gridOptionsGlobal.api.getSelectedRows();
+    if (selectedStudents.length==1) {
+        let studentId = selectedStudents[0].id;
     selectedStudentId = studentId;
     let xml = new XMLHttpRequest();
-
-
     xml.onload = function () {
         let response = this.responseText;
         let students = JSON.parse(response);
         document.getElementById('student-name').value = students.name;
         document.getElementById('student-surname').value = students.surname;
     }
-
-
     xml.open("GET", API_URL + "/students/" + studentId, true);
     xml.setRequestHeader("Authorization", token)
     xml.send();
+    }
+    
 }
+
+
 
 function clearErrorMessage() {
     document.getElementById('name-error').innerHTML = "";
     document.getElementById('surname-error').innerHTML = "";
 }
+
+
 
 
 function onStudentsNote(studentId) {
@@ -175,29 +184,30 @@ function loadAddStudentNotes(studentId) {
     xml.send();
 }
 
-function prepareAgGridTable() {
-    // Column Definitions: Defines the columns to be displayed.
+function prepareAgGridTable(){
+
     const columnDefs = [
-        { field: "id", headerName: "Kod" },
-        { field: "name", headerName: "Ad" },
-        { field: "surname", headerName: "Soyad" }
+        { field: "id", headerName:"Kod" },
+        { field: "name", headerName:"Ad"  },
+        { field: "surname", headerName:"Soyad" }
     ];
-    // Grid Options: Contains all of the grid configurations
-    const gridOptions = {
+
+      const gridOptions = {
         columnDefs: columnDefs,
         rowData: [],
-        defaultColDef: { sortable: true, filter: true },
+        defaultColDef:{sortable:true,filter:true},
         animateRows: true,
-        floatingFilter: true,
+        floatingFilter:true,
         pagination: true,
-        powSelection: 'multiple'
-    };
-    gridOptionsGlobal = gridOptions;
-    // Your Javascript code to create the grid
-    document.addEventListener('DOMContentLoaded', () => {
-        const myGridElement = document.querySelector('#myStudents');
-        new agGrid.Grid(myGridElement, gridOptions);
-    })
+        rowSelection:'multiple'
+      };
+
+      gridOptionsGlobal = gridOptions;
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const gridDiv = document.querySelector('#myStudents');
+        new agGrid.Grid(gridDiv, gridOptions);
+      });
 }
 
 prepareAgGridTable()
@@ -244,4 +254,11 @@ function saveStudent(photo) {
     xml.setRequestHeader('Content-type', 'application/json');
     xml.setRequestHeader("Authorization", token)
     xml.send(requset);
+}
+
+function onShowImage(){
+    let selectedStudents = gridOptionsGlobal.api.getSelectedRows();
+    console.log(selectedStudents[0]);
+
+    document.getElementById('student-image').src = API_URL + "/files/download/" + selectedStudents[0].profilePhoto;
 }

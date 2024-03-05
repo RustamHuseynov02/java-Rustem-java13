@@ -1,3 +1,4 @@
+
 package az.developia.course.entity;
 
 import javax.persistence.Entity;

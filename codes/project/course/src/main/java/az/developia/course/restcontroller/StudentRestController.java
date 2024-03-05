@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import az.developia.course.entity.Student;
+import az.developia.course.repository.StudentRepository;
 import az.developia.course.service.StudentService;
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class StudentRestController {
 
 	private final StudentService service;
+	private final StudentRepository repository;
 
 	@PostMapping
 	public ResponseEntity<Object> save(@Valid @RequestBody Student s,BindingResult br) {
@@ -48,5 +51,7 @@ public class StudentRestController {
 		ResponseEntity<Object> resp = service.update(id);
 		return resp;
 	}
+	
+
 
 }

@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,8 +19,12 @@ import az.developia.course.entity.FileModel;
 public class FileService {
 
 	public ResponseEntity<Object> uploadFiles(MultipartFile file) {
-		System.out.println(file.getOriginalFilename());
-
+		
+		FileModel model = new FileModel();
+		if (file==null) {
+			model.setFileName("fakeImage.png");
+			return ResponseEntity.ok(model);
+		}
 		String fileName = file.getOriginalFilename();
 
 		try {
@@ -43,9 +49,20 @@ public class FileService {
 			e.printStackTrace();
 		}
 
-		FileModel model = new FileModel();
+		
 		model.setFileName(fileName);
 		return ResponseEntity.ok(model);
+	}
+
+	public ResponseEntity<Resource> getDownload(String filename) {
+		try {
+			Resource file = new UrlResource(Paths.get("C:/java1").resolve(filename).toUri());
+			return ResponseEntity.ok().header(org.springframework.http.HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+file.getFilename()+"\"").body(file);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 
 	
