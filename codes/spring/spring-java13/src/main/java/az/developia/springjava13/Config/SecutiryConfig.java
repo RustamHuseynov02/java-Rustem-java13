@@ -43,6 +43,8 @@ public class SecutiryConfig {
 	    return http.csrf().disable()
 	        .authorizeRequests()
 	        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+	        .requestMatchers(HttpMethod.POST,"/users/**").permitAll()
+	        .requestMatchers(HttpMethod.POST,"/students/**").permitAll()
 	        .anyRequest().authenticated()
 	        .and()
 	        .httpBasic()

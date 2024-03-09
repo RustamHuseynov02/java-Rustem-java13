@@ -15,6 +15,7 @@ import az.developia.springjava13.entity.AuthorityEntity;
 import az.developia.springjava13.entity.StudentEntity;
 import az.developia.springjava13.entity.TeacherEntity;
 import az.developia.springjava13.entity.UserEntity;
+import az.developia.springjava13.entity.Users;
 import az.developia.springjava13.exception.OurRuntimeException;
 import az.developia.springjava13.repository.AuthorityRepository;
 import az.developia.springjava13.repository.StudentRepository;
@@ -38,6 +39,10 @@ public class StudentService {
 	private final SecutiryService secutiryService;
 
 	private final TeacherService teacherService;
+	
+	private final UserService userService;
+	
+	private final UsersService usersService;
 
 	private final UserRepository userRepo;
 
@@ -64,7 +69,7 @@ public class StudentService {
 		TeacherEntity teacher = teacherService.entity(secutiryService.findByUsername());
 		Integer teacherId = teacher.getId();
 
-		List<StudentEntity> list = repository.findAllByTeacherId(teacherId);
+		List<StudentEntity> list = repository.findAllByCreator(teacherId);
 
 		studentResponse.setStudents(list);
 
@@ -85,12 +90,14 @@ public class StudentService {
 			// annotasiya altinda olan metodun
 		} // parametresine daxil olur orada xetani daha optimize bir sekilde gosterir
 
-		TeacherEntity teacher = teacherService.entity(secutiryService.findByUsername());
-		Integer teacherId = teacher.getId();
+		Users users = usersService.username(secutiryService.findByUsername());
+		Integer userId = users.getUserId();
+		String usersType = users.getType();
 
 		StudentEntity entity = new StudentEntity();
 		mapper.map(s, entity);
-		entity.setTeacherId(teacherId);
+		entity.setCreator(userId);
+		entity.setCreatorType(usersType);
 		repository.save(entity);
 
 		UserEntity userEntity = new UserEntity();
@@ -132,7 +139,7 @@ public class StudentService {
 
 		AuthorityEntity auEntity = new AuthorityEntity();
 		auEntity.setUsername(dto.getUsername());
-		if (en.getTeacherId() == teacherId) {
+		if (en.getCreator() == teacherId) {
 			repository.save(en);
 			userRepo.save(user);
 			authorityRepository.save(auEntity);
@@ -157,7 +164,7 @@ public class StudentService {
 		Integer teacherId = teacher.getId();
 
 		StudentEntity en = repository.findById(id).orElseThrow(() -> new OurRuntimeException(null, "id tapilmadi"));
-		if (en.getTeacherId() == teacherId) {
+		if (en.getCreator() == teacherId) {
 			repository.deleteById(id);
 			userRepo.deleteById(en.getUsername());
 			authorityRepository.deleteByUserAuthorities(en.getUsername());
@@ -185,7 +192,7 @@ public class StudentService {
 		Optional<StudentEntity> optional = repository.findById(id);
 		if (optional.isPresent()) {
 			StudentEntity en = optional.get();
-			if (en.getTeacherId() == teacherId) {
+			if (en.getCreator() == teacherId) {
 				return ResponseEntity.ok(optional.get());
 			} else {
 				throw new OurRuntimeException(null, "bu telebeni cagira bilmezsen");
@@ -194,6 +201,11 @@ public class StudentService {
 		} else {
 			throw new OurRuntimeException(null, "id tapilmadi");
 		}
+	}
+
+	public ResponseEntity<Object> findPagination(Integer begin, Integer length) {
+		List<StudentEntity> en = repository.findPagination(begin,length);
+		return ResponseEntity.ok(en);
 	}
 
 }

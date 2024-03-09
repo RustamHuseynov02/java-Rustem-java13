@@ -8,6 +8,9 @@ import jakarta.transaction.Transactional;
 @Transactional
 public interface UserRepository extends JpaRepository<UserEntity, String> {
 
+
+	UserEntity username(String a);
+
 //	@Query(value = "UPDATE users SET username=?1 where username=?2",nativeQuery = true)
 //	@Modifying
 //	void saveByUser(String username,String newUsername);

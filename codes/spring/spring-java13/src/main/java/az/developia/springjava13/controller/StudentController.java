@@ -77,5 +77,13 @@ public class StudentController {
 		ResponseEntity<Object> resp = service.findById(id);
 		return resp;
 	}
+	
+	// /students/pagination/begin/0/length/100
+		@GetMapping(path = "/pagination/begin/{begin}/length/{length}")
+		@PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
+		public ResponseEntity<Object> pagination(@PathVariable Integer begin,@PathVariable Integer length){	
+			ResponseEntity<Object> resp = service.findPagination(begin,length);
+			return resp;
+		}
 
 }

@@ -7,25 +7,20 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
-@Table(name = "users")
+@Table(name = "userId")
 @Getter
 @Setter
-@ToString
-public class UserEntity {
+public class Users {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer userId;
+	
 	private String username;
-	
-	private String password;
-	
-	private String email;
-	
-	private Integer enabled;
 	
 	private String type;
 	
-	private Integer userId;
+	
 }

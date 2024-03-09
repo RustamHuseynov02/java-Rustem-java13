@@ -25,6 +25,7 @@ import az.developia.springjava13.entity.OwnerEntity;
 import az.developia.springjava13.entity.StudentEntity;
 import az.developia.springjava13.entity.TeacherEntity;
 import az.developia.springjava13.entity.UserEntity;
+import az.developia.springjava13.entity.Users;
 import az.developia.springjava13.exception.OurRuntimeException;
 import az.developia.springjava13.repository.AdminRepository;
 import az.developia.springjava13.repository.AuthorityRepository;
@@ -33,6 +34,7 @@ import az.developia.springjava13.repository.OwnerRepository;
 import az.developia.springjava13.repository.StudentRepository;
 import az.developia.springjava13.repository.TeacherRepository;
 import az.developia.springjava13.repository.UserRepository;
+import az.developia.springjava13.repository.UsersRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -56,8 +58,10 @@ public class UserController {
 	
 	private final AdminRepository adminRepository;
 	
+	private final UsersRepository usersRepository;
 	
-	@PostMapping(path = "admin")
+	
+	@PostMapping(path = "/admin")
 	public void addAdmin(@Valid @RequestBody AdminDTO a,BindingResult br) {
 		if (br.hasErrors()) {
 			throw new OurRuntimeException(br, "melumatin tamliginda problem var");
@@ -87,8 +91,13 @@ public class UserController {
         userEntity.setType("Admin");
         userRepository.save(userEntity);
         
+        Users users = new Users();
+		users.setUsername(a.getUsername());
+		users.setType(userEntity.getType());
+		usersRepository.save(users);
+        
         AuthorityEntity authorityEntity = new AuthorityEntity();
-        authorityEntity.setAuthority("");
+        authorityEntity.setAuthority("ROLE_ADD_STUDENT");
         authorityEntity.setUsername(userEntity.getUsername());
         authorityRepository.save(authorityEntity);
 		
@@ -114,10 +123,7 @@ public class UserController {
 		entity.setUsername(t.getUsername());
 		repository.save(entity);
 		
-		
-		
 		UserEntity userEntity = new UserEntity();
-		
 		userEntity.setUsername(t.getUsername());
 		String raw = t.getPassword();
 		String pass = "{bcrypt}" + encoder.encode(raw);
@@ -127,6 +133,10 @@ public class UserController {
 		userEntity.setEnabled(1);
 		userRepository.save(userEntity);
 
+		Users users = new Users();
+		users.setUsername(t.getUsername());
+		users.setType(userEntity.getType());
+		usersRepository.save(users);
 		
 		
 		AuthorityEntity a = new AuthorityEntity();
@@ -164,6 +174,10 @@ public class UserController {
 		userEntity.setEnabled(1);
 		userRepository.save(userEntity);
 		
+		Users users = new Users();
+		users.setUsername(d.getUsername());
+		users.setType(userEntity.getType());
+		usersRepository.save(users);
 		
 		AuthorityEntity authorityEntity = new AuthorityEntity();
 		authorityEntity.setId(null);
@@ -213,7 +227,7 @@ public class UserController {
 		entity.setName(s.getName());
 		entity.setSurname(s.getSurname());
 		entity.setUsername(s.getUsername());
-		entity.setTeacherId(teacherId);
+		entity.setCreator(teacherId);
 		studentRepository.save(entity);
 
 		UserEntity userEntity = new UserEntity();
@@ -225,6 +239,11 @@ public class UserController {
 		userEntity.setEmail(s.getEmail());
 		userEntity.setEnabled(1);
 		userRepository.save(userEntity);
+		
+		Users users = new Users();
+		users.setUsername(s.getUsername());
+		users.setType(userEntity.getType());
+		usersRepository.save(users);
 		
 		AuthorityEntity authorityEntity = new AuthorityEntity();
 		authorityEntity.setAuthority("ROLE_GET_ID_STUDENT");
@@ -265,6 +284,11 @@ public class UserController {
 		entity.setType("Owner");
 		userRepository.save(entity);
 		
+		Users users = new Users();
+		users.setUsername(o.getUsername());
+		users.setType(entity.getType());
+		usersRepository.save(users);
+		
 		AuthorityEntity authorityEntity = new AuthorityEntity();
 		authorityEntity.setAuthority("ROLE_ADD_BOOK");
 		authorityEntity.setUsername(entity.getUsername());
@@ -275,5 +299,6 @@ public class UserController {
 	}
 	
 
+	
 	
 }
