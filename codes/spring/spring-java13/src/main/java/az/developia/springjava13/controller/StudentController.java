@@ -27,7 +27,6 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(path = "/students")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
-@Api(description = "burada telebelerin crud emeliyyati olur")
 public class StudentController {
 
 	private final StudentService service;
@@ -39,8 +38,7 @@ public class StudentController {
 	}
 	
 	@GetMapping
-	@PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
-	@ApiOperation(value = "burada mellimin id-sine gore butun telebeleri qaytarir",notes = "qeyd")
+	//@PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
 	public ResponseEntity<Object> getList() {
 		ResponseEntity<Object> findAllById = service.findAllById();
 		

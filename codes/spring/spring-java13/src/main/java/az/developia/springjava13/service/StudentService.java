@@ -16,10 +16,12 @@ import az.developia.springjava13.entity.StudentEntity;
 import az.developia.springjava13.entity.TeacherEntity;
 import az.developia.springjava13.entity.UserEntity;
 import az.developia.springjava13.entity.Users;
+import az.developia.springjava13.entity.ViewEntity;
 import az.developia.springjava13.exception.OurRuntimeException;
 import az.developia.springjava13.repository.AuthorityRepository;
 import az.developia.springjava13.repository.StudentRepository;
 import az.developia.springjava13.repository.UserRepository;
+import az.developia.springjava13.repository.ViewRepository;
 import az.developia.springjava13.request.StudentAddRequest;
 import az.developia.springjava13.response.StudentAddResponse;
 import az.developia.springjava13.response.StudentDeleteResponse;
@@ -43,6 +45,8 @@ public class StudentService {
 	private final UserService userService;
 	
 	private final UsersService usersService;
+	
+	private final ViewRepository viewRepository;
 
 	private final UserRepository userRepo;
 
@@ -56,6 +60,7 @@ public class StudentService {
 		if (response.getStudents() == null) {
 			throw new OurRuntimeException(null, "Telebeler tapilmadi");
 		}
+		
 		List<StudentEntity> s = repository.findAll();
 
 		response.setStudents(s);
@@ -66,12 +71,14 @@ public class StudentService {
 	public ResponseEntity<Object> findAllById() {
 		StudentResponse studentResponse = new StudentResponse();
 
-		TeacherEntity teacher = teacherService.entity(secutiryService.findByUsername());
-		Integer teacherId = teacher.getId();
+//		TeacherEntity teacher = teacherService.entity(secutiryService.findByUsername());
+//		Integer teacherId = teacher.getId();
 
-		List<StudentEntity> list = repository.findAllByCreator(teacherId);
+		List<ViewEntity> view = viewRepository.findAll();
+		System.out.println(view);
+		//List<StudentEntity> list = repository.findAllByCreator(teacherId);
 
-		studentResponse.setStudents(list);
+		//studentResponse.setStudents(list);
 
 		studentResponse.setUsername("A4Tech");
 		return ResponseEntity.ok(studentResponse);
