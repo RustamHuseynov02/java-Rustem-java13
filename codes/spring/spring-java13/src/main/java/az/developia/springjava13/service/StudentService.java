@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -47,7 +48,9 @@ public class StudentService {
 	private final UsersService usersService;
 	
 	private final ViewRepository viewRepository;
-
+ 
+	private final DynamicFilteringDemo filteringDemo;
+	
 	private final UserRepository userRepo;
 
 	private final AuthorityRepository authorityRepository;
@@ -71,17 +74,51 @@ public class StudentService {
 	public ResponseEntity<Object> findAllById() {
 		StudentResponse studentResponse = new StudentResponse();
 
-//		TeacherEntity teacher = teacherService.entity(secutiryService.findByUsername());
-//		Integer teacherId = teacher.getId();
+		TeacherEntity teacher = teacherService.entity(secutiryService.findByUsername());
+		Integer teacherId = teacher.getId();
 
-		List<ViewEntity> view = viewRepository.findAll();
-		System.out.println(view);
-		//List<StudentEntity> list = repository.findAllByCreator(teacherId);
+//		List<ViewEntity> view = viewRepository.findAll();
+//		System.out.println(view);
+		List<StudentEntity> list = repository.findAllByCreator(teacherId);
 
-		//studentResponse.setStudents(list);
+		studentResponse.setStudents(list);
 
 		studentResponse.setUsername("A4Tech");
 		return ResponseEntity.ok(studentResponse);
+
+	}
+	
+	public MappingJacksonValue findAllByIdUsername() {    //Spring REST dynamic filtering
+		StudentResponse studentResponse = new StudentResponse(); 
+
+		TeacherEntity teacher = teacherService.entity(secutiryService.findByUsername());
+		Integer teacherId = teacher.getId();
+
+//		List<ViewEntity> view = viewRepository.findAll();
+//		System.out.println(view);
+		List<StudentEntity> list = repository.findAllByCreator(teacherId);
+
+		studentResponse.setStudents(list);
+
+		studentResponse.setUsername("A4Tech");
+		return filteringDemo.filter("student", list, "id","username");
+
+	}
+	
+	public MappingJacksonValue findAllByIdName() {    //Spring REST dynamic filtering
+		StudentResponse studentResponse = new StudentResponse();
+
+		TeacherEntity teacher = teacherService.entity(secutiryService.findByUsername());
+		Integer teacherId = teacher.getId();
+
+//		List<ViewEntity> view = viewRepository.findAll();
+//		System.out.println(view);
+		List<StudentEntity> list = repository.findAllByCreator(teacherId);
+
+		studentResponse.setStudents(list);
+
+		studentResponse.setUsername("A4Tech");
+		return filteringDemo.filter("student", list, "id","name");
 
 	}
 

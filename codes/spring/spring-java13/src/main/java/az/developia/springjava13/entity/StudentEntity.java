@@ -1,5 +1,7 @@
 package az.developia.springjava13.entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +16,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "students")
+@JsonFilter(value = "student")
 public class StudentEntity {
 
 	@Id

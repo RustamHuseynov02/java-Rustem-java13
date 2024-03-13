@@ -3,6 +3,7 @@ package az.developia.springjava13.controller;
 
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,18 +32,34 @@ public class StudentController {
 
 	private final StudentService service;
 	
-	@GetMapping(path = "/html")
+	@GetMapping(path = "/html",produces = {"application/json","application/xml"})  //content negotiation
 	public ResponseEntity<Object> list() {
 		ResponseEntity<Object> findAll = service.findAll();
 		return findAll;
 	}
 	
-	@GetMapping
+	@GetMapping(produces = {"application/json","application/xml"})
 	//@PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
 	public ResponseEntity<Object> getList() {
 		ResponseEntity<Object> findAllById = service.findAllById();
 		
 		return findAllById;
+	}
+	
+	@GetMapping(path = "/id-username",produces = {"application/json","application/xml"}) //Spring REST dynamic filtering
+	//@PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
+	public MappingJacksonValue getUsernameId() {
+		MappingJacksonValue findAllByIdUsername = service.findAllByIdUsername();
+		
+		return findAllByIdUsername;
+	}
+	
+	@GetMapping(path = "/id-name",produces = {"application/json","application/xml"})  //Spring REST dynamic filtering
+	//@PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
+	public MappingJacksonValue getNameId() {
+		MappingJacksonValue findAllByIdName = service.findAllByIdName();
+		
+		return findAllByIdName;
 	}
 
 	@PostMapping
