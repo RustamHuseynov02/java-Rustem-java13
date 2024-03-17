@@ -3,10 +3,13 @@ package az.developia.springjava13.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +20,6 @@ import az.developia.springjava13.entity.StudentEntity;
 import az.developia.springjava13.entity.TeacherEntity;
 import az.developia.springjava13.entity.UserEntity;
 import az.developia.springjava13.entity.Users;
-import az.developia.springjava13.entity.ViewEntity;
 import az.developia.springjava13.exception.OurRuntimeException;
 import az.developia.springjava13.repository.AuthorityRepository;
 import az.developia.springjava13.repository.StudentRepository;
@@ -28,7 +30,6 @@ import az.developia.springjava13.response.StudentAddResponse;
 import az.developia.springjava13.response.StudentDeleteResponse;
 import az.developia.springjava13.response.StudentResponse;
 import az.developia.springjava13.response.StudentUpdateResponse;
-import jakarta.validation.Valid;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -56,13 +57,15 @@ public class StudentService {
 	private final AuthorityRepository authorityRepository;
 
 	private final ModelMapper mapper;
+	
+	private Logger logger = LoggerFactory.getLogger(StudentService.class);
 
 	public ResponseEntity<Object> findAll() {
 		StudentResponse response = new StudentResponse();
 
-		if (response.getStudents() == null) {
-			throw new OurRuntimeException(null, "Telebeler tapilmadi");
-		}
+//		if (response.getStudents() == null) {
+//			throw new OurRuntimeException(null, "Telebeler tapilmadi");
+//		}
 		
 		List<StudentEntity> s = repository.findAll();
 
@@ -101,7 +104,7 @@ public class StudentService {
 		studentResponse.setStudents(list);
 
 		studentResponse.setUsername("A4Tech");
-		return filteringDemo.filter("student", list, "id","username");
+		return filteringDemo.filter("student", list, "id","username","birthday");
 
 	}
 	
@@ -122,17 +125,13 @@ public class StudentService {
 
 	}
 
-	public ResponseEntity<Object> add(@Valid @RequestBody StudentAddRequest s, BindingResult br) { // burada valid
-																									// annotasiyasi
-																									// gelen
-		// requestin dogrulunu yoxlayir eger webden
-		// gelen sorgu
-// @valid-in qoydugu qaydalara uygun deyilse
-// br.hasErrors true qaytarir ve bizim exception-miz calisir
-		if (br.hasErrors()) { // bizim exception icinde bindingresult qebul eden constructor var
-			throw new OurRuntimeException(br, "melumatin tamligi pozulub");// exception xetani alir @ExceptionHandler
-			// annotasiya altinda olan metodun
-		} // parametresine daxil olur orada xetani daha optimize bir sekilde gosterir
+	public ResponseEntity<Object> add(@Valid @RequestBody StudentAddRequest s, BindingResult br) { 
+		if (br.hasErrors()) { 
+			throw new OurRuntimeException(br, "melumatin tamligi pozulub");
+		} 
+		logger.debug("add student" + s);
+		System.out.println("----"+s.getName()+"------");
+		
 
 		Users users = usersService.username(secutiryService.findByUsername());
 		Integer userId = users.getUserId();

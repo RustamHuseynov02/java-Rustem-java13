@@ -1,16 +1,23 @@
 package az.developia.springjava13.request;
 
+import java.time.LocalDate;
+
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+
 import az.developia.springjava13.annotation.myAnnotation;
-import jakarta.validation.constraints.Size;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
-@Builder
 @ToString
+@NoArgsConstructor
 public class StudentAddRequest {
 
 	private Integer id;
@@ -27,6 +34,9 @@ public class StudentAddRequest {
 	private String email;
 	@Size(max = 30, min = 2, message = "sizin adiniz qaydalara uygun deyil")
 	private String type;
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonFormat
+	private LocalDate birthday;
 	
 
 }

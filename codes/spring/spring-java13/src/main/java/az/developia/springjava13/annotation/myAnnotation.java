@@ -5,9 +5,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import javax.validation.Constraint;
+import javax.validation.Payload;
+
 import az.developia.springjava13.annotationClass.CourseCodeValidator;
-import jakarta.validation.Constraint;
-import jakarta.validation.Payload;
 
 @Constraint(validatedBy = CourseCodeValidator.class)
 @Target( { ElementType.METHOD, ElementType.FIELD } )

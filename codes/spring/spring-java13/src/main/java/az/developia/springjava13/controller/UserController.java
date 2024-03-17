@@ -2,6 +2,8 @@ package az.developia.springjava13.controller;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,7 +37,6 @@ import az.developia.springjava13.repository.StudentRepository;
 import az.developia.springjava13.repository.TeacherRepository;
 import az.developia.springjava13.repository.UserRepository;
 import az.developia.springjava13.repository.UsersRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController

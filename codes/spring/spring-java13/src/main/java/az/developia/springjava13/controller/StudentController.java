@@ -2,6 +2,8 @@ package az.developia.springjava13.controller;
 
 
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,9 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import az.developia.springjava13.dto.StudentUpdateDTO;
 import az.developia.springjava13.request.StudentAddRequest;
 import az.developia.springjava13.service.StudentService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController

@@ -2,13 +2,11 @@ package az.developia.springjava13.controller;
 
 import java.util.List;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import az.developia.springjava13.entity.BookEntity;
-import az.developia.springjava13.entity.DealerEntity;
 import az.developia.springjava13.repository.BookRepository;
 import az.developia.springjava13.repository.DealerRepository;
 import az.developia.springjava13.response.DealerResponse;
