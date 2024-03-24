@@ -1,0 +1,161 @@
+2024-03-20 23:34:09,211 INFO org.hibernate.validator.internal.util.Version [background-preinit] HV000001: Hibernate Validator 6.2.5.Final
+2024-03-20 23:34:09,238 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SpringJava13Application using Java 17.0.8 on DESKTOP-II0AOQK with PID 6768 (D:\Java Documents\java-Rustem-java13\codes\spring\spring-java13\target\classes started by Toshiba in D:\Java Documents\java-Rustem-java13\codes\spring\spring-java13)
+2024-03-20 23:34:09,239 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.7.6, Spring v5.3.24
+2024-03-20 23:34:09,243 INFO org.springframework.boot.SpringApplication [restartedMain] The following 1 profile is active: "development"
+2024-03-20 23:34:09,408 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-03-20 23:34:09,409 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-03-20 23:34:13,138 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-20 23:34:13,482 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 316 ms. Found 10 JPA repository interfaces.
+2024-03-20 23:34:18,552 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8888 (http)
+2024-03-20 23:34:18,592 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8888"]
+2024-03-20 23:34:18,595 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2024-03-20 23:34:18,602 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.69]
+2024-03-20 23:34:19,070 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2024-03-20 23:34:19,084 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 9673 ms
+2024-03-20 23:34:19,275 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2024-03-20 23:34:20,005 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2024-03-20 23:34:20,026 INFO org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration [restartedMain] H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:test'
+2024-03-20 23:34:20,648 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-20 23:34:20,877 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate ORM core version 5.6.14.Final
+2024-03-20 23:34:21,572 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-03-20 23:34:22,026 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-03-20 23:34:23,908 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-03-20 23:34:23,933 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-20 23:34:24,221 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-03-20 23:34:30,778 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@543b265d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@164168aa, org.springframework.security.web.context.SecurityContextPersistenceFilter@5c93710f, org.springframework.security.web.header.HeaderWriterFilter@753f2533, org.springframework.security.web.authentication.logout.LogoutFilter@271976a7, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@4c58389, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6c80d7a4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@107eb7e2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2dec87e7, org.springframework.security.web.session.SessionManagementFilter@551df8e, org.springframework.security.web.access.ExceptionTranslationFilter@d196f2f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@19bab73]
+2024-03-20 23:34:30,891 INFO springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping [restartedMain] Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-03-20 23:34:31,477 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2024-03-20 23:34:32,767 WARN org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration [restartedMain] 
+
+Using generated security password: 450666b5-ef77-4bea-bd22-eda15439df4e
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-03-20 23:34:32,807 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8888"]
+2024-03-20 23:34:32,877 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8888 (http) with context path ''
+2024-03-20 23:34:32,879 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Context refreshed
+2024-03-20 23:34:32,959 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Found 1 custom documentation plugin(s)
+2024-03-20 23:34:33,108 INFO springfox.documentation.spring.web.scanners.ApiListingReferenceScanner [restartedMain] Scanning for api listing references
+2024-03-20 23:34:33,590 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: deleteUsingDELETE_1
+2024-03-20 23:34:33,665 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_1
+2024-03-20 23:34:33,698 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: deleteUsingDELETE_2
+2024-03-20 23:34:33,705 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: findAllByIdUsingGET_1
+2024-03-20 23:34:33,719 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: getListUsingGET_1
+2024-03-20 23:34:33,749 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: listUsingGET_1
+2024-03-20 23:34:33,769 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_2
+2024-03-20 23:34:33,965 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SpringJava13Application in 25.943 seconds (JVM running for 28.726)
+2024-03-20 23:36:19,716 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8888-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-20 23:36:19,717 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8888-exec-1] Initializing Servlet 'dispatcherServlet'
+2024-03-20 23:36:19,720 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8888-exec-1] Completed initialization in 3 ms
+2024-03-20 23:41:08,854 INFO org.springframework.boot.devtools.autoconfigure.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener [File Watcher] Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-03-20 23:41:09,082 INFO org.apache.juli.logging.DirectJDKLog [Thread-5] Pausing ProtocolHandler ["http-nio-8888"]
+2024-03-20 23:41:09,082 INFO org.apache.juli.logging.DirectJDKLog [Thread-5] Stopping service [Tomcat]
+2024-03-20 23:41:09,086 INFO org.apache.juli.logging.DirectJDKLog [Thread-5] Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-03-20 23:41:09,093 INFO org.apache.juli.logging.DirectJDKLog [Thread-5] Stopping ProtocolHandler ["http-nio-8888"]
+2024-03-20 23:41:09,106 INFO org.apache.juli.logging.DirectJDKLog [Thread-5] Destroying ProtocolHandler ["http-nio-8888"]
+2024-03-20 23:41:09,149 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-5] Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-20 23:41:09,532 WARN org.springframework.beans.factory.support.DisposableBeanAdapter [Thread-5] Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-214]
+2024-03-20 23:41:09,533 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown initiated...
+2024-03-20 23:41:09,694 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown completed.
+2024-03-20 23:41:10,365 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SpringJava13Application using Java 17.0.8 on DESKTOP-II0AOQK with PID 6768 (D:\Java Documents\java-Rustem-java13\codes\spring\spring-java13\target\classes started by Toshiba in D:\Java Documents\java-Rustem-java13\codes\spring\spring-java13)
+2024-03-20 23:41:10,366 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.7.6, Spring v5.3.24
+2024-03-20 23:41:10,366 INFO org.springframework.boot.SpringApplication [restartedMain] The following 1 profile is active: "development"
+2024-03-20 23:41:13,417 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-20 23:41:13,568 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 149 ms. Found 10 JPA repository interfaces.
+2024-03-20 23:41:14,416 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8888 (http)
+2024-03-20 23:41:14,425 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8888"]
+2024-03-20 23:41:14,427 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2024-03-20 23:41:14,427 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.69]
+2024-03-20 23:41:14,561 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2024-03-20 23:41:14,562 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 4172 ms
+2024-03-20 23:41:14,675 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Starting...
+2024-03-20 23:41:14,690 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Start completed.
+2024-03-20 23:41:14,693 INFO org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration [restartedMain] H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:test'
+2024-03-20 23:41:14,925 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-20 23:41:14,949 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-03-20 23:41:15,737 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-03-20 23:41:15,739 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-20 23:41:15,890 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-03-20 23:41:18,115 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@23701345, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7956eab0, org.springframework.security.web.context.SecurityContextPersistenceFilter@52490dd9, org.springframework.security.web.header.HeaderWriterFilter@5141ba07, org.springframework.security.web.authentication.logout.LogoutFilter@7d1d701, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@54655c2a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4b6ddcef, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@17a0d607, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3756267e, org.springframework.security.web.session.SessionManagementFilter@22a50c67, org.springframework.security.web.access.ExceptionTranslationFilter@3688b3e3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@44e145e9]
+2024-03-20 23:41:18,157 INFO springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping [restartedMain] Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-03-20 23:41:18,458 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2024-03-20 23:41:19,031 WARN org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration [restartedMain] 
+
+Using generated security password: 01754295-4d86-4766-b47d-bd59840b129b
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-03-20 23:41:19,039 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8888"]
+2024-03-20 23:41:19,048 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8888 (http) with context path ''
+2024-03-20 23:41:19,051 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Context refreshed
+2024-03-20 23:41:19,053 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Found 1 custom documentation plugin(s)
+2024-03-20 23:41:19,076 INFO springfox.documentation.spring.web.scanners.ApiListingReferenceScanner [restartedMain] Scanning for api listing references
+2024-03-20 23:41:19,260 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: deleteUsingDELETE_1
+2024-03-20 23:41:19,423 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_1
+2024-03-20 23:41:19,470 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: deleteUsingDELETE_2
+2024-03-20 23:41:19,475 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: findAllByIdUsingGET_1
+2024-03-20 23:41:19,478 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: getListUsingGET_1
+2024-03-20 23:41:19,495 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: listUsingGET_1
+2024-03-20 23:41:19,529 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_2
+2024-03-20 23:41:19,672 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SpringJava13Application in 9.68 seconds (JVM running for 434.433)
+2024-03-20 23:41:19,680 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2024-03-20 23:41:20,492 INFO org.springframework.boot.devtools.autoconfigure.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener [File Watcher] Restarting due to 3 class path changes (0 additions, 0 deletions, 3 modifications)
+2024-03-20 23:41:20,538 INFO org.apache.juli.logging.DirectJDKLog [Thread-8] Pausing ProtocolHandler ["http-nio-8888"]
+2024-03-20 23:41:20,542 INFO org.apache.juli.logging.DirectJDKLog [Thread-8] Stopping service [Tomcat]
+2024-03-20 23:41:20,545 INFO org.apache.juli.logging.DirectJDKLog [Thread-8] Stopping ProtocolHandler ["http-nio-8888"]
+2024-03-20 23:41:20,549 INFO org.apache.juli.logging.DirectJDKLog [Thread-8] Destroying ProtocolHandler ["http-nio-8888"]
+2024-03-20 23:41:20,557 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-8] Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-20 23:41:20,769 WARN org.springframework.beans.factory.support.DisposableBeanAdapter [Thread-8] Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-214]
+2024-03-20 23:41:20,769 INFO com.zaxxer.hikari.HikariDataSource [Thread-8] HikariPool-2 - Shutdown initiated...
+2024-03-20 23:41:20,770 INFO com.zaxxer.hikari.HikariDataSource [Thread-8] HikariPool-2 - Shutdown completed.
+2024-03-20 23:41:21,030 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SpringJava13Application using Java 17.0.8 on DESKTOP-II0AOQK with PID 6768 (D:\Java Documents\java-Rustem-java13\codes\spring\spring-java13\target\classes started by Toshiba in D:\Java Documents\java-Rustem-java13\codes\spring\spring-java13)
+2024-03-20 23:41:21,030 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.7.6, Spring v5.3.24
+2024-03-20 23:41:21,031 INFO org.springframework.boot.SpringApplication [restartedMain] The following 1 profile is active: "development"
+2024-03-20 23:41:22,492 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-20 23:41:22,687 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 190 ms. Found 10 JPA repository interfaces.
+2024-03-20 23:41:23,270 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8888 (http)
+2024-03-20 23:41:23,277 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8888"]
+2024-03-20 23:41:23,279 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2024-03-20 23:41:23,280 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.69]
+2024-03-20 23:41:23,416 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2024-03-20 23:41:23,418 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 2384 ms
+2024-03-20 23:41:23,460 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-3 - Starting...
+2024-03-20 23:41:23,464 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-3 - Start completed.
+2024-03-20 23:41:23,464 INFO org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration [restartedMain] H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:test'
+2024-03-20 23:41:23,664 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-20 23:41:23,680 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2024-03-20 23:41:24,269 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-03-20 23:41:24,270 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-20 23:41:24,365 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-03-20 23:41:26,026 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@46b40449, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2d3164e, org.springframework.security.web.context.SecurityContextPersistenceFilter@4b67f937, org.springframework.security.web.header.HeaderWriterFilter@755fe3f4, org.springframework.security.web.authentication.logout.LogoutFilter@1046ccff, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@26fc02b9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@251ce602, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2f56f116, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3cf2df78, org.springframework.security.web.session.SessionManagementFilter@4ed0ba2c, org.springframework.security.web.access.ExceptionTranslationFilter@140f434a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4aae863a]
+2024-03-20 23:41:26,063 INFO springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping [restartedMain] Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2024-03-20 23:41:26,247 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2024-03-20 23:41:26,700 WARN org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration [restartedMain] 
+
+Using generated security password: 52a5ba83-cccb-481d-8a0a-48035f4eaa52
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-03-20 23:41:26,708 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8888"]
+2024-03-20 23:41:26,715 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8888 (http) with context path ''
+2024-03-20 23:41:26,718 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Context refreshed
+2024-03-20 23:41:26,722 INFO springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper [restartedMain] Found 1 custom documentation plugin(s)
+2024-03-20 23:41:26,739 INFO springfox.documentation.spring.web.scanners.ApiListingReferenceScanner [restartedMain] Scanning for api listing references
+2024-03-20 23:41:26,865 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: deleteUsingDELETE_1
+2024-03-20 23:41:26,900 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_1
+2024-03-20 23:41:26,945 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: deleteUsingDELETE_2
+2024-03-20 23:41:26,948 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: findAllByIdUsingGET_1
+2024-03-20 23:41:26,950 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: getListUsingGET_1
+2024-03-20 23:41:26,959 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: listUsingGET_1
+2024-03-20 23:41:26,971 INFO springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator [restartedMain] Generating unique operation named: updateUsingPUT_2
+2024-03-20 23:41:27,037 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SpringJava13Application in 6.157 seconds (JVM running for 441.798)
+2024-03-20 23:41:27,040 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2024-03-20 23:41:54,975 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8888-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-03-20 23:41:54,975 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8888-exec-1] Initializing Servlet 'dispatcherServlet'
+2024-03-20 23:41:54,977 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8888-exec-1] Completed initialization in 2 ms
+2024-03-20 23:43:24,888 INFO org.hibernate.validator.internal.util.Version [background-preinit] HV000001: Hibernate Validator 6.2.5.Final
+2024-03-20 23:43:24,911 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SpringJava13Application using Java 17.0.8 on DESKTOP-II0AOQK with PID 2032 (D:\Java Documents\java-Rustem-java13\codes\spring\spring-java13\target\classes started by Toshiba in D:\Java Documents\java-Rustem-java13\codes\spring\spring-java13)
+2024-03-20 23:43:24,913 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.7.6, Spring v5.3.24
+2024-03-20 23:43:24,917 INFO org.springframework.boot.SpringApplication [restartedMain] The following 1 profile is active: "development"
+2024-03-20 23:43:25,077 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-03-20 23:43:25,079 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'

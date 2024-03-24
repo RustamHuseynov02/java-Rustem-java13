@@ -191,7 +191,7 @@ public class UserController {
 	}
 	
 	
-	@GetMapping
+	@GetMapping(path = "/login")
 	public void login() {
 		
 	}
