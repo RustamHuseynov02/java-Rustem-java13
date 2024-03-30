@@ -1,6 +1,5 @@
 package az.developia.springjava13.dto;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +12,5 @@ public class StudentUpdateDTO {
 	private String username;
 	private String password;
 
-	
 	private Integer teacherId;
 }
-

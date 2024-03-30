@@ -1,7 +1,5 @@
 package az.developia.springjava13.controller;
 
-
-
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
@@ -30,49 +28,51 @@ import lombok.RequiredArgsConstructor;
 public class StudentController {
 
 	private final StudentService service;
-	
-	@GetMapping(path = "/html",produces = {"application/json","application/xml"})  //content negotiation
+
+	@GetMapping(path = "/html", produces = { "application/json", "application/xml" }) // content negotiation
 	public ResponseEntity<Object> list() {
 		ResponseEntity<Object> findAll = service.findAll();
 		return findAll;
 	}
-	
-	@GetMapping(produces = {"application/json","application/xml"})
-	//@PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
+
+	@GetMapping(produces = { "application/json", "application/xml" })
+	// @PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
 	public ResponseEntity<Object> getList() {
 		ResponseEntity<Object> findAllById = service.findAllById();
-		
+
 		return findAllById;
 	}
-	
-	@GetMapping(path = "/id-username",produces = {"application/json","application/xml"}) //Spring REST dynamic filtering
-	//@PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
+
+	@GetMapping(path = "/id-username", produces = { "application/json", "application/xml" }) // Spring REST dynamic
+																								// filtering
+	// @PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
 	public MappingJacksonValue getUsernameId() {
 		MappingJacksonValue findAllByIdUsername = service.findAllByIdUsername();
-		
+
 		return findAllByIdUsername;
 	}
-	
-	@GetMapping(path = "/id-name",produces = {"application/json","application/xml"})  //Spring REST dynamic filtering
-	//@PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
+
+	@GetMapping(path = "/id-name", produces = { "application/json", "application/xml" }) // Spring REST dynamic
+																							// filtering
+	// @PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
 	public MappingJacksonValue getNameId() {
 		MappingJacksonValue findAllByIdName = service.findAllByIdName();
-		
+
 		return findAllByIdName;
 	}
 
 	@PostMapping
 	@PreAuthorize(value = " hasAuthority('ROLE_ADD_STUDENT')")
-	public ResponseEntity<Object> add(@Valid @RequestBody StudentAddRequest dto, BindingResult br) { 
-		ResponseEntity<Object> resp = service.add(dto,br);
-		
+	public ResponseEntity<Object> add(@Valid @RequestBody StudentAddRequest dto, BindingResult br) {
+		ResponseEntity<Object> resp = service.add(dto, br);
+
 		return resp;
 	}
 
 	@PutMapping
-	@PreAuthorize("hasAuthority('ROLE_UPDATE_STUDENT')")
+	// @PreAuthorize("hasAuthority('ROLE_UPDATE_STUDENT')")
 	public ResponseEntity<Object> update(@Valid @RequestBody StudentUpdateDTO dto, BindingResult br) {
-		ResponseEntity<Object> resp = service.findByIdtoUpdate(dto,br);
+		ResponseEntity<Object> resp = service.findByIdtoUpdate(dto, br);
 		return resp;
 
 	}
@@ -81,9 +81,8 @@ public class StudentController {
 	@PreAuthorize("hasAuthority('ROLE_DELETE_STUDENT')")
 	public ResponseEntity<Object> delete(@PathVariable Integer id) {
 		ResponseEntity<Object> resp = service.findByIdToDelete(id);
-			return resp;
-	} 
-	
+		return resp;
+	}
 
 	@GetMapping("/{id}")
 	@PreAuthorize("hasAuthority('ROLE_GET_ID_STUDENT')")
@@ -91,13 +90,13 @@ public class StudentController {
 		ResponseEntity<Object> resp = service.findById(id);
 		return resp;
 	}
-	
+
 	// /students/pagination/begin/0/length/100
-		@GetMapping(path = "/pagination/begin/{begin}/length/{length}")
-		@PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
-		public ResponseEntity<Object> pagination(@PathVariable Integer begin,@PathVariable Integer length){	
-			ResponseEntity<Object> resp = service.findPagination(begin,length);
-			return resp;
-		}
+	@GetMapping(path = "/pagination/begin/{begin}/length/{length}")
+	@PreAuthorize(value = "hasAuthority('ROLE_GET_STUDENT')")
+	public ResponseEntity<Object> pagination(@PathVariable Integer begin, @PathVariable Integer length) {
+		ResponseEntity<Object> resp = service.findPagination(begin, length);
+		return resp;
+	}
 
 }

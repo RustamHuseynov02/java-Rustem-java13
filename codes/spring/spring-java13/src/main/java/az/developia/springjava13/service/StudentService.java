@@ -43,21 +43,21 @@ public class StudentService {
 	private final SecutiryService secutiryService;
 
 	private final TeacherService teacherService;
-	
+
 	private final UserService userService;
-	
+
 	private final UsersService usersService;
-	
+
 	private final ViewRepository viewRepository;
- 
+
 	private final DynamicFilteringDemo filteringDemo;
-	
+
 	private final UserRepository userRepo;
 
 	private final AuthorityRepository authorityRepository;
 
 	private final ModelMapper mapper;
-	
+
 	private Logger logger = LoggerFactory.getLogger(StudentService.class);
 
 	public ResponseEntity<Object> findAll() {
@@ -66,7 +66,7 @@ public class StudentService {
 //		if (response.getStudents() == null) {
 //			throw new OurRuntimeException(null, "Telebeler tapilmadi");
 //		}
-		
+
 		List<StudentEntity> s = repository.findAll();
 
 		response.setStudents(s);
@@ -90,25 +90,8 @@ public class StudentService {
 		return ResponseEntity.ok(studentResponse);
 
 	}
-	
-	public MappingJacksonValue findAllByIdUsername() {    //Spring REST dynamic filtering
-		StudentResponse studentResponse = new StudentResponse(); 
 
-		TeacherEntity teacher = teacherService.entity(secutiryService.findByUsername());
-		Integer teacherId = teacher.getId();
-
-//		List<ViewEntity> view = viewRepository.findAll();
-//		System.out.println(view);
-		List<StudentEntity> list = repository.findAllByCreator(teacherId);
-
-		studentResponse.setStudents(list);
-
-		studentResponse.setUsername("A4Tech");
-		return filteringDemo.filter("student", list, "id","username","birthday");
-
-	}
-	
-	public MappingJacksonValue findAllByIdName() {    //Spring REST dynamic filtering
+	public MappingJacksonValue findAllByIdUsername() { // Spring REST dynamic filtering
 		StudentResponse studentResponse = new StudentResponse();
 
 		TeacherEntity teacher = teacherService.entity(secutiryService.findByUsername());
@@ -121,17 +104,33 @@ public class StudentService {
 		studentResponse.setStudents(list);
 
 		studentResponse.setUsername("A4Tech");
-		return filteringDemo.filter("student", list, "id","name");
+		return filteringDemo.filter("student", list, "id", "username", "birthday");
 
 	}
 
-	public ResponseEntity<Object> add(@Valid @RequestBody StudentAddRequest s, BindingResult br) { 
-		if (br.hasErrors()) { 
+	public MappingJacksonValue findAllByIdName() { // Spring REST dynamic filtering
+		StudentResponse studentResponse = new StudentResponse();
+
+		TeacherEntity teacher = teacherService.entity(secutiryService.findByUsername());
+		Integer teacherId = teacher.getId();
+
+//		List<ViewEntity> view = viewRepository.findAll();
+//		System.out.println(view);
+		List<StudentEntity> list = repository.findAllByCreator(teacherId);
+
+		studentResponse.setStudents(list);
+
+		studentResponse.setUsername("A4Tech");
+		return filteringDemo.filter("student", list, "id", "name");
+
+	}
+
+	public ResponseEntity<Object> add(@Valid @RequestBody StudentAddRequest s, BindingResult br) {
+		if (br.hasErrors()) {
 			throw new OurRuntimeException(br, "melumatin tamligi pozulub");
-		} 
+		}
 		logger.debug("add student" + s);
-		System.out.println("----"+s.getName()+"------");
-		
+		System.out.println("----" + s.getName() + "------");
 
 		Users users = usersService.username(secutiryService.findByUsername());
 		Integer userId = users.getUserId();
@@ -173,8 +172,9 @@ public class StudentService {
 			throw new OurRuntimeException(null, "Bele bir mellim tapilmadi");
 		}
 		Integer teacherId = teacher.getId();
-		
-		StudentEntity en = repository.findById(dto.getId()).orElseThrow(() -> new OurRuntimeException(null, "bele bir telebe tapilmadi"));
+
+		StudentEntity en = repository.findById(dto.getId())
+				.orElseThrow(() -> new OurRuntimeException(null, "bele bir telebe tapilmadi"));
 		mapper.map(dto, en);
 
 		UserEntity user = new UserEntity();
@@ -247,7 +247,7 @@ public class StudentService {
 	}
 
 	public ResponseEntity<Object> findPagination(Integer begin, Integer length) {
-		List<StudentEntity> en = repository.findPagination(begin,length);
+		List<StudentEntity> en = repository.findPagination(begin, length);
 		return ResponseEntity.ok(en);
 	}
 
