@@ -1,13 +1,18 @@
 package com.developia.endproject.translateApp.service.impl;
 
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 import com.developia.endproject.translateApp.dto.AdminDto;
+import com.developia.endproject.translateApp.dto.SelectAdminDto;
 import com.developia.endproject.translateApp.entity.Admin;
 import com.developia.endproject.translateApp.entity.Authority;
 import com.developia.endproject.translateApp.entity.User;
+import com.developia.endproject.translateApp.exception.OurRuntimeException;
 import com.developia.endproject.translateApp.repository.AdminRepo;
 import com.developia.endproject.translateApp.service.AdminService;
 import com.developia.endproject.translateApp.service.AuthorityService;
@@ -25,7 +30,16 @@ public class AdminServiceImpl implements AdminService {
 	private final ModelMapper mapper;
 
 	@Override
-	public String signUp(AdminDto adminDto) {
+	public AdminDto signUp(AdminDto adminDto, BindingResult br) {
+		if (br.hasErrors()) {
+			throw new OurRuntimeException(br, null);
+		}
+
+		Optional<Admin> optional = repository.findByUsername(adminDto.getUsername());
+		if (optional.isPresent()) {
+			throw new OurRuntimeException(null, "bu username istifade olunub");
+		}
+
 		Admin admin = new Admin();
 		mapper.map(adminDto, admin);
 		repository.save(admin);
@@ -40,6 +54,22 @@ public class AdminServiceImpl implements AdminService {
 		user.setUsername(adminDto.getUsername());
 		user.setPassword(raw);
 		userService.add(user);
-		return "Hesab yarandi";
+		// response
+		AdminDto dto = new AdminDto();
+		mapper.map(admin, dto);
+		return dto;
+	}
+
+	@Override
+	public AdminDto selectAdmin(SelectAdminDto selectAdminDto) {
+		Integer id = selectAdminDto.getId();
+		
+		User user = userService.findById(id)
+				.orElseThrow(() -> new OurRuntimeException(null, "bele bir user tapilmadi"));
+		Authority authority = new Authority();
+		authority.setUsername(user.getUsername());
+		authority.setAuthority("ROLE_NEXT_ADMIN");
+		authorityService.add(authority);
+		return null;
 	}
 }
