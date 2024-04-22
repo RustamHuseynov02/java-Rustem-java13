@@ -1,12 +1,16 @@
 package com.developia.endproject.translateApp.service.impl;
 
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 import com.developia.endproject.translateApp.dto.UserDto;
 import com.developia.endproject.translateApp.entity.Authority;
 import com.developia.endproject.translateApp.entity.User;
+import com.developia.endproject.translateApp.exception.OurRuntimeException;
 import com.developia.endproject.translateApp.repository.UserRepo;
 import com.developia.endproject.translateApp.service.AuthorityService;
 import com.developia.endproject.translateApp.service.UserService;
@@ -23,7 +27,15 @@ public class UserServiceImpl implements UserService {
 
 	// logic codes
 	@Override
-	public String signUp(UserDto userDto) {
+	public UserDto signUp(UserDto userDto, BindingResult br) {
+		if (br.hasErrors()) {
+			throw new OurRuntimeException(br, null);
+		}
+		Optional<User> check = repository.findByUsername(userDto.getUsername());
+		if (check.isPresent()) {
+			throw new OurRuntimeException(null, "bele bir username istifade olunub");
+		}
+
 		User user = new User();
 		mapper.map(userDto, user);
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -36,13 +48,22 @@ public class UserServiceImpl implements UserService {
 		authority.setAuthority("ROLE_USER");
 		authority.setUsername(userDto.getUsername());
 		authorityService.add(authority);
-		return "Hesab yarandi";
+		// response
+		UserDto dto = new UserDto();
+		mapper.map(user, dto);
+		return dto;
 	}
 
 	@Override
 	public void add(User user) {
 		repository.save(user);
 
+	}
+
+	@Override
+	public Optional<User> findById(Integer id) {
+		Optional<User> optional = repository.findById(id);
+		return optional;
 	}
 
 }
