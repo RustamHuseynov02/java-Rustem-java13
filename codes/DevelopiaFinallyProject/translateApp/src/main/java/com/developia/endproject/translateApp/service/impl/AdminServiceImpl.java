@@ -63,7 +63,6 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public AdminDto selectAdmin(SelectAdminDto selectAdminDto) {
 		Integer id = selectAdminDto.getId();
-		
 		User user = userService.findById(id)
 				.orElseThrow(() -> new OurRuntimeException(null, "bele bir user tapilmadi"));
 		Authority authority = new Authority();
