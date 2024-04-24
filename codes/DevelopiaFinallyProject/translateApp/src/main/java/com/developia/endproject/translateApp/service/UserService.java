@@ -15,4 +15,6 @@ public interface UserService {
 
 	Optional<User> findById(Integer id);
 
+	User username(String findByUsername);
+
 }

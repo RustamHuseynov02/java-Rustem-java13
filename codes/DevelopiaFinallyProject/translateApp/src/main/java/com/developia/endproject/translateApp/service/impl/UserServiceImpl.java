@@ -66,4 +66,13 @@ public class UserServiceImpl implements UserService {
 		return optional;
 	}
 
+	@Override
+	public User username(String findByUsername) {
+		User user = repository.username(findByUsername);
+		if (user == null) {
+			throw new OurRuntimeException(null, "bele bir user yoxdur");
+		}
+		return user;
+	}
+
 }
