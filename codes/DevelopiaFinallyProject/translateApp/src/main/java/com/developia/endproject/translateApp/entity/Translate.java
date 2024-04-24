@@ -16,5 +16,4 @@ public class Translate {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String comment;
-
 }

@@ -38,6 +38,7 @@ public class TranslateServiceImpl implements TranslateService {
 		String azerbaijanWord = translateDto.getAzerbaijanWord();
 		Word word = wordService.findByAzerbaijanWord(azerbaijanWord)
 				.orElseThrow(() -> new OurRuntimeException(null, "not found"));
+		word.setUserComment(translateDto.getComment());
 		translate.setComment(translateDto.getComment());
 		repository.save(translate);
 		// response
