@@ -18,5 +18,5 @@ public class Word {
 	private String azerbaijanWord;
 	private String englishWord;
 	private String whoAddedTheWord;
-	private String commentUser;
+	private String userComment;
 }
