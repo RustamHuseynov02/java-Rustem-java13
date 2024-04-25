@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import com.developia.endproject.translateApp.dto.WordDto;
 import com.developia.endproject.translateApp.dto.WordResponse;
 import com.developia.endproject.translateApp.dto.WordResponseList;
+import com.developia.endproject.translateApp.dto.WordUpdateDto;
 import com.developia.endproject.translateApp.entity.User;
 import com.developia.endproject.translateApp.entity.Word;
 import com.developia.endproject.translateApp.exception.OurRuntimeException;
@@ -19,6 +20,7 @@ import com.developia.endproject.translateApp.service.SecurityService;
 import com.developia.endproject.translateApp.service.UserService;
 import com.developia.endproject.translateApp.service.WordService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -72,6 +74,30 @@ public class WordServiceImpl implements WordService {
 		WordResponse response = new WordResponse();
 		response.setWordList(responseList);
 		return response;
+	}
+
+	@Override
+	public WordUpdateDto updateWord(@Valid WordUpdateDto wordUpdateDto, BindingResult br) {
+		if (br.hasErrors()) {
+			throw new OurRuntimeException(br, null);
+		}
+		Optional<Word> isPresent = repository.findByAzerbaijanWord(wordUpdateDto.getAzerbaijanWord());
+		if (isPresent.isPresent()) {
+			throw new OurRuntimeException(null, "belə bir məlumat bazada var");
+		}
+		User user = userService.username(securityService.findByUsername());
+		String username = user.getUsername();
+
+		Word word = repository.findById(wordUpdateDto.getId())
+				.orElseThrow(() -> new OurRuntimeException(null, "belə bir söz tapılmadı"));
+		word.setAzerbaijanWord(wordUpdateDto.getAzerbaijanWord());
+		if (word.getWhoAddedTheWord() == username) {
+			repository.save(word);
+		}
+		// response
+		WordUpdateDto updateDto = new WordUpdateDto();
+		updateDto.setAzerbaijanWord(word.getAzerbaijanWord());
+		return updateDto;
 	}
 
 	@Override

@@ -6,7 +6,10 @@ import org.springframework.validation.BindingResult;
 
 import com.developia.endproject.translateApp.dto.WordDto;
 import com.developia.endproject.translateApp.dto.WordResponse;
+import com.developia.endproject.translateApp.dto.WordUpdateDto;
 import com.developia.endproject.translateApp.entity.Word;
+
+import jakarta.validation.Valid;
 
 public interface WordService {
 
@@ -17,5 +20,7 @@ public interface WordService {
 	Optional<Word> findByAzerbaijanWord(String azerbaijanWord);
 
 	WordResponse findAllWordPagination(Integer begin, Integer length);
+
+	WordUpdateDto updateWord(@Valid WordUpdateDto wordUpdateDto, BindingResult br);
 
 }
