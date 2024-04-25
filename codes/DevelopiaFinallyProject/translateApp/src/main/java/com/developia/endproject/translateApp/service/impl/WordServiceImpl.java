@@ -1,5 +1,7 @@
 package com.developia.endproject.translateApp.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -7,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import com.developia.endproject.translateApp.dto.WordDto;
+import com.developia.endproject.translateApp.dto.WordResponse;
+import com.developia.endproject.translateApp.dto.WordResponseList;
 import com.developia.endproject.translateApp.entity.User;
 import com.developia.endproject.translateApp.entity.Word;
 import com.developia.endproject.translateApp.exception.OurRuntimeException;
@@ -50,6 +54,24 @@ public class WordServiceImpl implements WordService {
 		WordDto dto = new WordDto();
 		mapper.map(word, dto);
 		return dto;
+	}
+
+	@Override
+	public WordResponse findAllWordPagination(Integer begin, Integer length) {
+		List<Word> list = repository.findAllWordPagination(begin, length);
+
+		// response
+		List<WordResponseList> responseList = new ArrayList<>();
+		for (Word word : list) {
+			WordResponseList wordResponseList = new WordResponseList();
+			// Burada mapper.map ile Word nesnesini WordResponseList'e dönüştür
+			mapper.map(word, wordResponseList);
+			responseList.add(wordResponseList);
+		}
+
+		WordResponse response = new WordResponse();
+		response.setWordList(responseList);
+		return response;
 	}
 
 	@Override
