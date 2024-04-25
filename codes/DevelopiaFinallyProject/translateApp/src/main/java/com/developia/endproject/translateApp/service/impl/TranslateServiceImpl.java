@@ -39,13 +39,18 @@ public class TranslateServiceImpl implements TranslateService {
 		Word word = wordService.findByAzerbaijanWord(azerbaijanWord)
 				.orElseThrow(() -> new OurRuntimeException(null, "not found"));
 		word.setUserComment(translateDto.getComment());
-		translate.setComment(translateDto.getComment());
 		repository.save(translate);
 		// response
 		CommentResponse response = new CommentResponse();
-		response.setComment(translate.getComment());
+		response.setComment(translateDto.getComment());
 		response.setAzerbaijanWord(word.getAzerbaijanWord());
 		return response;
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		repository.deleteById(id);
+
 	}
 
 }

@@ -23,4 +23,6 @@ public interface WordService {
 
 	WordUpdateDto updateWord(@Valid WordUpdateDto wordUpdateDto, BindingResult br);
 
+	String deleteWord(Integer id);
+
 }

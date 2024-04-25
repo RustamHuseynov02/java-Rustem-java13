@@ -78,6 +78,9 @@ public class WordServiceImpl implements WordService {
 
 	@Override
 	public WordUpdateDto updateWord(@Valid WordUpdateDto wordUpdateDto, BindingResult br) {
+		if (wordUpdateDto.getId() == null || wordUpdateDto.getId() <= 0) {
+			throw new OurRuntimeException(null, "id-ni dogru daxil edin");
+		}
 		if (br.hasErrors()) {
 			throw new OurRuntimeException(br, null);
 		}
@@ -93,11 +96,31 @@ public class WordServiceImpl implements WordService {
 		word.setAzerbaijanWord(wordUpdateDto.getAzerbaijanWord());
 		if (word.getWhoAddedTheWord() == username) {
 			repository.save(word);
+		} else {
+			throw new OurRuntimeException(null, "bu sözü redaktə edə bilməzsəm");
 		}
 		// response
 		WordUpdateDto updateDto = new WordUpdateDto();
 		updateDto.setAzerbaijanWord(word.getAzerbaijanWord());
 		return updateDto;
+	}
+
+	@Override
+	public String deleteWord(Integer id) {
+		if (id == null || id <= 0) {
+			throw new OurRuntimeException(null, "id-ni dogru daxil edin");
+		}
+		User user = userService.username(securityService.findByUsername());
+		String username = user.getUsername();
+
+		Word word = repository.findById(id).orElseThrow(() -> new OurRuntimeException(null, "belə bir söz tapılmadı"));
+		if (word.getWhoAddedTheWord() == username) {
+			repository.deleteById(id);
+		} else {
+			throw new OurRuntimeException(null, "bu sözü silə bilməzsəm");
+		}
+
+		return "Söz xətasız silindi";
 	}
 
 	@Override

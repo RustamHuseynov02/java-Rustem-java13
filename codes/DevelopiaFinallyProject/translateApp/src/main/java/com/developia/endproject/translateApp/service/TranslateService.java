@@ -9,4 +9,6 @@ public interface TranslateService {
 
 	CommentResponse comment(TranslateDto translateDto);
 
+	void deleteById(Integer id);
+
 }
