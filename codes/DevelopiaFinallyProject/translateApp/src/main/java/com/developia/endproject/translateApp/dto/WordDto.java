@@ -7,7 +7,9 @@ import lombok.Data;
 public class WordDto {
 
 	@NotEmpty
-	private String azerbaijanWord;
+	private String language;
 	@NotEmpty
-	private String englishWord;
+	private String word;
+	@NotEmpty
+	private String translateWord;
 }

@@ -37,11 +37,11 @@ public class WordServiceImpl implements WordService {
 		if (br.hasErrors()) {
 			throw new OurRuntimeException(br, null);
 		}
-		Optional<Word> check = repository.findByEnglishWord(wordDto.getEnglishWord());
+		Optional<Word> check = repository.findByWord(wordDto.getWord());
 		if (check.isPresent()) {
 			throw new OurRuntimeException(null, "bele bir melumat bazada var");
 		}
-		Optional<Word> isPresent = repository.findByAzerbaijanWord(wordDto.getAzerbaijanWord());
+		Optional<Word> isPresent = repository.findByTranslateWord(wordDto.getTranslateWord());
 		if (isPresent.isPresent()) {
 			throw new OurRuntimeException(null, "bele bir melumat bazada var");
 		}
@@ -84,7 +84,7 @@ public class WordServiceImpl implements WordService {
 		if (br.hasErrors()) {
 			throw new OurRuntimeException(br, null);
 		}
-		Optional<Word> isPresent = repository.findByAzerbaijanWord(wordUpdateDto.getAzerbaijanWord());
+		Optional<Word> isPresent = repository.findByTranslateWord(wordUpdateDto.getTranslateWord());
 		if (isPresent.isPresent()) {
 			throw new OurRuntimeException(null, "belə bir məlumat bazada var");
 		}
@@ -93,7 +93,11 @@ public class WordServiceImpl implements WordService {
 
 		Word word = repository.findById(wordUpdateDto.getId())
 				.orElseThrow(() -> new OurRuntimeException(null, "belə bir söz tapılmadı"));
-		word.setAzerbaijanWord(wordUpdateDto.getAzerbaijanWord());
+		if (word.getWhoAddedTheWord() == username) {
+			word.setTranslateWord(wordUpdateDto.getTranslateWord());
+		} else {
+			throw new OurRuntimeException(null, "siz bu sözü düzəliş edə bilməyəksiz.");
+		}
 		if (word.getWhoAddedTheWord() == username) {
 			repository.save(word);
 		} else {
@@ -101,7 +105,7 @@ public class WordServiceImpl implements WordService {
 		}
 		// response
 		WordUpdateDto updateDto = new WordUpdateDto();
-		updateDto.setAzerbaijanWord(word.getAzerbaijanWord());
+		updateDto.setTranslateWord(word.getTranslateWord());
 		return updateDto;
 	}
 
@@ -124,14 +128,14 @@ public class WordServiceImpl implements WordService {
 	}
 
 	@Override
-	public Optional<Word> findByEnglishWord(String english) {
-		Optional<Word> o = repository.findByEnglishWord(english);
+	public Optional<Word> findByWord(String word) {
+		Optional<Word> o = repository.findByWord(word);
 		return o;
 	}
 
 	@Override
-	public Optional<Word> findByAzerbaijanWord(String azerbaijanWord) {
-		Optional<Word> o = repository.findByAzerbaijanWord(azerbaijanWord);
+	public Optional<Word> findByTranslateWord(String translateWord) {
+		Optional<Word> o = repository.findByTranslateWord(translateWord);
 		return o;
 	}
 }

@@ -15,8 +15,9 @@ public class Word {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String azerbaijanWord;
-	private String englishWord;
+	private String word;
+	private String language;
+	private String translateWord;
 	private String whoAddedTheWord;
 	private String userComment;
 }

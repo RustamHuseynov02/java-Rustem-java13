@@ -6,5 +6,5 @@ import lombok.Data;
 public class CommentResponse {
 
 	private String comment;
-	private String azerbaijanWord;
+	private String translateWord;
 }

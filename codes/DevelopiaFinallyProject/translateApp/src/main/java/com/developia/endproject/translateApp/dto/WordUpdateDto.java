@@ -8,5 +8,5 @@ public class WordUpdateDto {
 
 	private Integer id;
 	@NotEmpty(message = "boş qoymaq olmaz!")
-	private String azerbaijanWord;
+	private String translateWord;
 }

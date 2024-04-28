@@ -8,6 +8,8 @@ public class TranslateDto {
 
 	private String comment;
 	@NotEmpty
-	private String englishWord;
-	private String azerbaijanWord;
+	private String language;
+	private String word;
+	private String translateWord;
+
 }

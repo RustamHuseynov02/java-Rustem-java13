@@ -15,9 +15,9 @@ public interface WordService {
 
 	WordDto addWord(WordDto wordDto, BindingResult br);
 
-	Optional<Word> findByEnglishWord(String english);
+	Optional<Word> findByWord(String word);
 
-	Optional<Word> findByAzerbaijanWord(String azerbaijanWord);
+	Optional<Word> findByTranslateWord(String translateWord);
 
 	WordResponse findAllWordPagination(Integer begin, Integer length);
 

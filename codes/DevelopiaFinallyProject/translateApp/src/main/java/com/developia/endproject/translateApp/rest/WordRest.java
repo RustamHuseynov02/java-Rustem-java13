@@ -26,7 +26,7 @@ public class WordRest {
 
 	private final WordService service;
 
-	@PostMapping(path = "/add")
+	@PostMapping
 	public ResponseEntity<Object> addWord(@Valid @RequestBody WordDto wordDto, BindingResult br) {
 		return new ResponseEntity<Object>(service.addWord(wordDto, br), HttpStatus.OK);
 	}
@@ -36,7 +36,7 @@ public class WordRest {
 		return new ResponseEntity<Object>(service.findAllWordPagination(begin, length), HttpStatus.OK);
 	}
 
-	@PutMapping(path = "/update")
+	@PutMapping
 	public ResponseEntity<Object> updateWord(@Valid @RequestBody WordUpdateDto wordUpdateDto, BindingResult br) {
 		return new ResponseEntity<Object>(service.updateWord(wordUpdateDto, br), HttpStatus.OK);
 	}

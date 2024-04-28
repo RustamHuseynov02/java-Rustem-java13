@@ -10,11 +10,11 @@ import com.developia.endproject.translateApp.entity.Word;
 
 public interface WordRepo extends JpaRepository<Word, Integer> {
 
-	Optional<Word> findByEnglishWord(String englishWord);
-
-	Optional<Word> findByAzerbaijanWord(String azerbaijanWord);
-
 	@Query(value = "select * from words limit ?1,?2", nativeQuery = true)
 	List<Word> findAllWordPagination(Integer b, Integer l);
+
+	Optional<Word> findByWord(String word);
+
+	Optional<Word> findByTranslateWord(String translateWord);
 
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class WordResponseList {
 
-	private String azerbaijanWord;
-	private String englishWord;
+	private String language;
+	private String translateWord;
+	private String word;
 }

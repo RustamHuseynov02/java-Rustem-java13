@@ -23,27 +23,26 @@ public class TranslateServiceImpl implements TranslateService {
 
 	@Override
 	public String translate(TranslateDto translateDto) {
-		String english = translateDto.getEnglishWord();
-		Word word = wordService.findByEnglishWord(english)
-				.orElseThrow(() -> new OurRuntimeException(null, "not found"));
+		String words = translateDto.getWord();
+		Word word = wordService.findByWord(words).orElseThrow(() -> new OurRuntimeException(null, "not found"));
 		// response
 		TranslateResponse response = new TranslateResponse();
-		response.setAzerbaijanWord(word.getAzerbaijanWord());
-		return response.getAzerbaijanWord();
+		response.setTranslateWord(word.getTranslateWord());
+		return response.getTranslateWord();
 	}
 
 	@Override
 	public CommentResponse comment(TranslateDto translateDto) {
 		Translate translate = new Translate();
-		String azerbaijanWord = translateDto.getAzerbaijanWord();
-		Word word = wordService.findByAzerbaijanWord(azerbaijanWord)
+		String translateWord = translateDto.getTranslateWord();
+		Word word = wordService.findByTranslateWord(translateWord)
 				.orElseThrow(() -> new OurRuntimeException(null, "not found"));
 		word.setUserComment(translateDto.getComment());
 		repository.save(translate);
 		// response
 		CommentResponse response = new CommentResponse();
 		response.setComment(translateDto.getComment());
-		response.setAzerbaijanWord(word.getAzerbaijanWord());
+		response.setTranslateWord(word.getTranslateWord());
 		return response;
 	}
 
