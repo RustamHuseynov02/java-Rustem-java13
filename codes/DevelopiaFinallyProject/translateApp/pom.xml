@@ -82,6 +82,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>translate-app</finalName>
 	</build>
 
 </project>
